@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:radix_ui_flutter/radix_ui_flutter.dart';
 
 void main() {
-  // Optional: enable global helpers (confirm/toast)
+  // Optional: enable global actions (confirm/toast)
   RadixUI.setNavigatorKey(GlobalKey<NavigatorState>());
   runApp(MaterialApp(
     navigatorKey: RadixUI.navigatorKey,
@@ -73,7 +73,7 @@ MaterialApp(
 )
 ```
 
-## RadixUI helpers (no BuildContext)
+## RadixUI API
 
 - Structure/content: `section`, `card`, `text`, `heading`, `separator`, `badge`, `avatar`, `link`
 - Buttons: `button(label, {variant, size, fullWidth, onPressed, color})`
