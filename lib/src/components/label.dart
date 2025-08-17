@@ -1,9 +1,15 @@
 import 'package:flutter/widgets.dart';
 import '../theme/radix_theme.dart';
 
+/// Form label with optional [trailing] widget (e.g., help link).
 class RadixLabel extends StatelessWidget {
+  /// Label text.
   final String text;
+
+  /// Optional widget displayed to the right.
   final Widget? trailing;
+
+  /// Creates a Radix label.
   const RadixLabel(this.text, {super.key, this.trailing});
 
   @override

@@ -3,11 +3,18 @@ import '../theme/radix_theme.dart';
 
 enum RadixBadgeVariant { solid, soft, outline }
 
+/// Small label used to highlight metadata.
 class RadixBadge extends StatelessWidget {
+  /// Badge text.
   final String label;
+
+  /// Visual style (solid/soft/outline). Defaults to soft.
   final RadixBadgeVariant variant;
+
+  /// Optional color override (accent).
   final Color? color;
 
+  /// Creates a Radix badge.
   const RadixBadge({super.key, required this.label, this.variant = RadixBadgeVariant.soft, this.color});
 
   @override

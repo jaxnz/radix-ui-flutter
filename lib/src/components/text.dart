@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import '../theme/radix_theme.dart';
 
+/// Body text with Radix semantic color and optional style overrides.
 class RadixText extends StatelessWidget {
+  /// Text content.
   final String text;
+
+  /// Additional style merged over the base style.
   final TextStyle? style;
+
+  /// Alignment of the text.
   final TextAlign? align;
+
+  /// If provided, truncates and adds ellipsis after this number of lines.
   final int? maxLines;
 
   const RadixText(this.text, {super.key, this.style, this.align, this.maxLines});
@@ -23,8 +31,12 @@ class RadixText extends StatelessWidget {
   }
 }
 
+/// Headline text sized by [level] (1..6) using Radix typography.
 class RadixHeading extends StatelessWidget {
+  /// Heading content.
   final String text;
+
+  /// Heading level (1..6). Smaller number means larger text.
   final int level; // 1..6
 
   const RadixHeading(this.text, {super.key, this.level = 3});

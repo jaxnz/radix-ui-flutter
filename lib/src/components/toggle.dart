@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import '../theme/radix_theme.dart';
 
+/// A pressable toggle pill used for tag-like on/off states.
 class RadixToggle extends StatefulWidget {
+  /// Initial on/off state. Defaults to false.
   final bool initialOn;
+
+  /// Toggle content (usually text or icon + text).
   final Widget child;
+
+  /// Called when the state changes.
   final ValueChanged<bool>? onChanged;
+
+  /// Creates a Radix toggle.
   const RadixToggle({super.key, required this.child, this.initialOn = false, this.onChanged});
 
   @override

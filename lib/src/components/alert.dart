@@ -3,12 +3,21 @@ import '../theme/radix_theme.dart';
 
 enum RadixAlertVariant { info, success, warning, danger }
 
+/// Inline alert for status messages.
 class RadixAlert extends StatelessWidget {
+  /// Title text.
   final String title;
+
+  /// Optional description text below the title.
   final String? description;
+
+  /// Visual variant controlling colors.
   final RadixAlertVariant variant;
+
+  /// Optional trailing widget (e.g., actions).
   final Widget? trailing;
 
+  /// Creates a Radix alert.
   const RadixAlert({super.key, required this.title, this.description, this.variant = RadixAlertVariant.info, this.trailing});
 
   @override

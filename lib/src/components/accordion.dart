@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import '../theme/radix_theme.dart';
 
+/// Accordion with bordered container and animated expand/collapse.
 class RadixAccordion extends StatelessWidget {
+  /// Accordion items to render.
   final List<RadixAccordionItem> items;
+
+  /// Creates a Radix accordion.
   const RadixAccordion({super.key, required this.items});
 
   @override
@@ -61,8 +65,14 @@ class _ItemState extends State<_Item> {
   }
 }
 
+/// Item configuration for [RadixAccordion].
 class RadixAccordionItem {
+  /// Header text.
   final String header;
+
+  /// Item content displayed when expanded.
   final Widget content;
+
+  /// Creates an accordion item.
   const RadixAccordionItem({required this.header, required this.content});
 }

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import '../theme/radix_theme.dart';
 
+/// Avatar that displays an image or fallback initials.
 class RadixAvatar extends StatelessWidget {
+  /// Optional network image URL.
   final String? imageUrl;
+
+  /// Initials used when [imageUrl] is null/empty.
   final String? initials;
+
+  /// Avatar size in logical pixels.
   final double size;
 
+  /// Creates a Radix avatar.
   const RadixAvatar({super.key, this.imageUrl, this.initials, this.size = 32});
 
   @override

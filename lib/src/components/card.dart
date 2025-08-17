@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import '../theme/radix_theme.dart';
 
+/// Radix-styled surface container with optional [header] and [footer].
 class RadixCard extends StatelessWidget {
+  /// Optional header placed at the top with bold text.
   final Widget? header;
+
+  /// Optional footer separated by a top border.
   final Widget? footer;
+
+  /// Main card content.
   final Widget child;
 
+  /// Creates a Radix card.
   const RadixCard({super.key, required this.child, this.header, this.footer});
 
   @override

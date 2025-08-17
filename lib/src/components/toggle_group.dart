@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import '../theme/radix_theme.dart';
 
+/// A group of toggle pills supporting single- or multi-select.
 class RadixToggleGroup<T> extends StatefulWidget {
+  /// Options to render.
   final List<RadixToggleOption<T>> options;
+
+  /// Currently selected values.
   final Set<T> selected;
+
+  /// If true, allows multiple selections.
   final bool multiple;
+
+  /// Called when the selection changes.
   final ValueChanged<Set<T>>? onChanged;
+
+  /// Creates a Radix toggle group.
   const RadixToggleGroup({super.key, required this.options, this.selected = const {}, this.multiple = false, this.onChanged});
 
   @override
@@ -71,8 +81,14 @@ class _ToggleChip extends StatelessWidget {
   }
 }
 
+/// Option descriptor for [RadixToggleGroup].
 class RadixToggleOption<T> {
+  /// Display label of the toggle.
   final String label;
+
+  /// Value associated with the toggle.
   final T value;
+
+  /// Creates a toggle option.
   const RadixToggleOption({required this.label, required this.value});
 }
