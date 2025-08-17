@@ -16,8 +16,11 @@ import 'package:flutter/material.dart';
 import 'package:radix_ui_flutter/radix_ui_flutter.dart';
 
 void main() {
-  runApp(RadixApp(
-    theme: RadixThemeData(brightness: Brightness.light),
+  // Optional: enable global helpers (confirm/toast)
+  RadixUI.setNavigatorKey(GlobalKey<NavigatorState>());
+  runApp(MaterialApp(
+    navigatorKey: RadixUI.navigatorKey,
+    builder: RadixUI.appBuilder(RadixThemeData(brightness: Brightness.light)),
     home: const DemoPage(),
   ));
 }
@@ -34,17 +37,17 @@ class DemoPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const RadixUI.heading('Hello Radix', level: 2),
+            RadixUI.heading('Hello Radix', level: 2),
             const SizedBox(height: 12),
-            const RadixText('A design-system friendly Flutter UI kit.'),
+            RadixUI.text('A design-system friendly Flutter UI kit.'),
             const SizedBox(height: 16),
             Row(children: [
-              RadixButton(child: const Text('Primary'), onPressed: () {}),
+              RadixUI.button('Primary', onPressed: () {}),
               const SizedBox(width: 8),
-              RadixButton(variant: RadixButtonVariant.outline, child: const Text('Secondary'), onPressed: () {}),
+              RadixUI.button('Secondary', variant: RadixButtonVariant.outline, onPressed: () {}),
             ]),
             const SizedBox(height: 16),
-            const RadixBadge(label: 'New'),
+            RadixUI.badge('New'),
           ],
         ),
       ),
@@ -55,24 +58,41 @@ class DemoPage extends StatelessWidget {
 
 ## Theming
 
-Use `RadixThemeData` to control colors, radii, and spacing. Wrap your app in `RadixApp` or provide `RadixTheme` manually.
+Use `RadixThemeData` to control palettes, radii, and spacing. Provide it via `RadixUI.appBuilder` (or `RadixScope`).
 
 ```dart
-RadixApp(
-  theme: RadixThemeData(
-    brightness: Brightness.dark,
-    brandScale: RadixColors.blue,
-  ),
-  home: const DemoPage(),
+final base = RadixThemeData(
+  brightness: Brightness.light,
+  grayScale: RadixColors.mauve,
+  brandScale: RadixColors.violet,
+);
+MaterialApp(
+  theme: base.toMaterialTheme(),
+  darkTheme: base.copyWith(brightness: Brightness.dark).toMaterialTheme(),
+  builder: RadixUI.appBuilder(base),
 )
 ```
 
-## Components
+## RadixUI helpers (no BuildContext)
 
-- `RadixButton` with `solid`, `soft`, `outline`, `ghost`
-- `RadixBadge` with `solid`, `soft`, `outline`
-- `RadixCard` layout container
-- `RadixText`, `RadixUI.heading`
+- Structure/content: `section`, `card`, `text`, `heading`, `separator`, `badge`, `avatar`, `link`
+- Buttons: `button(label, {variant, size, fullWidth, onPressed, color})`
+- Inputs: `textField`, `labeledSwitch`, `checkbox`, `radioGroup`, `select`
+- Ranges/status: `slider`, `progress`
+- Navigation/overlays: `tabs`, `tooltip`, `openDialog(RadixDialog)`, `accordion`, `toggle`, `toggleGroup`
+- Global UX: `showToast`, `confirm`, `appBuilder`, `setNavigatorKey`
+
+Example:
+```dart
+RadixUI.section(
+  title: 'Sign up',
+  child: Column(children: [
+    RadixUI.textField(placeholder: 'Email'),
+    const SizedBox(height: 12),
+    RadixUI.button('Create account', variant: RadixButtonVariant.soft, onPressed: () {}),
+  ]),
+)
+```
 
 ## Icons
 
