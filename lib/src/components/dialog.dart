@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import '../theme/radix_theme.dart';
 
+/// Radix-themed dialog wrapper providing consistent styling.
 class RadixDialog extends StatelessWidget {
+  /// Dialog title.
   final String title;
+
+  /// Dialog content.
   final Widget content;
+
+  /// Optional action buttons.
   final List<Widget> actions;
 
+  /// Creates a Radix dialog.
   const RadixDialog({super.key, required this.title, required this.content, this.actions = const []});
 
+  /// Shows a [RadixDialog] using [showDialog].
   static Future<T?> show<T>(BuildContext context, RadixDialog dialog) {
     final t = RadixTheme.of(context);
     final c = t.colors;

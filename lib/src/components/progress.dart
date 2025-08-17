@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import '../theme/radix_theme.dart';
 
+/// Linear progress bar styled for Radix.
 class RadixProgress extends StatelessWidget {
+  /// Progress in [0..1].
   final double value; // 0..1
+
+  /// Height of the bar. Defaults to 8.
   final double height;
 
+  /// Creates a Radix progress bar.
   const RadixProgress({super.key, required this.value, this.height = 8});
 
   @override

@@ -21,14 +21,7 @@ class RadixTextField extends StatelessWidget {
   final RadixFieldSize size;
 
   /// Creates a Radix text field.
-  const RadixTextField({
-    super.key,
-    this.controller,
-    this.placeholder,
-    this.label,
-    this.obscureText = false,
-    this.size = RadixFieldSize.md,
-  });
+  const RadixTextField({super.key, this.controller, this.placeholder, this.label, this.obscureText = false, this.size = RadixFieldSize.md});
 
   EdgeInsetsGeometry get _padding => switch (size) {
     RadixFieldSize.sm => const EdgeInsets.symmetric(horizontal: 10, vertical: 8),

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import '../theme/radix_theme.dart';
 
+/// Radix-styled wrapper for [Tooltip].
 class RadixTooltip extends StatelessWidget {
+  /// The widget that triggers the tooltip.
   final Widget child;
+
+  /// Tooltip text.
   final String message;
 
+  /// Creates a Radix tooltip.
   const RadixTooltip({super.key, required this.child, required this.message});
 
   @override
