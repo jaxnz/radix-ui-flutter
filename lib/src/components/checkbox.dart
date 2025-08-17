@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import '../theme/radix_theme.dart';
 
+/// Radix-styled checkbox with optional clickable [label].
 class RadixCheckbox extends StatelessWidget {
+  /// Whether the checkbox is checked.
   final bool value;
+
+  /// Callback when the value changes. If null, the control is disabled.
   final ValueChanged<bool?>? onChanged;
+
+  /// Optional label displayed to the right. Tapping it toggles the value.
   final String? label;
+
+  /// If true, supports three states (null/true/false).
   final bool tristate;
 
+  /// Creates a Radix checkbox.
   const RadixCheckbox({super.key, required this.value, this.onChanged, this.label, this.tristate = false});
 
   @override

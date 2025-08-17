@@ -3,13 +3,24 @@ import '../theme/radix_theme.dart';
 
 enum RadixFieldSize { sm, md, lg }
 
+/// A Radix-styled text field with consistent padding, radius and colors.
 class RadixTextField extends StatelessWidget {
+  /// Optional controller to manage the input text.
   final TextEditingController? controller;
+
+  /// Placeholder (hint) shown when empty.
   final String? placeholder;
+
+  /// Optional floating label text.
   final String? label;
+
+  /// If true, masks the input (e.g., for passwords). Defaults to false.
   final bool obscureText;
+
+  /// Control size (sm/md/lg). Affects padding and font size.
   final RadixFieldSize size;
 
+  /// Creates a Radix text field.
   const RadixTextField({
     super.key,
     this.controller,

@@ -3,12 +3,21 @@ import '../theme/radix_theme.dart';
 
 enum RadixSwitchSize { sm, md, lg }
 
+/// Radix-styled switch with optional clickable [label].
 class RadixSwitch extends StatelessWidget {
+  /// Whether the switch is on.
   final bool value;
+
+  /// Called when the value changes.
   final ValueChanged<bool>? onChanged;
+
+  /// Optional label text displayed to the right; also toggles the switch.
   final String? label;
+
+  /// Control size (sm/md/lg).
   final RadixSwitchSize size;
 
+  /// Creates a Radix switch.
   const RadixSwitch({
     super.key,
     required this.value,

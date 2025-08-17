@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import '../theme/radix_theme.dart';
 
+/// Radix-styled tabs with heading border and padded content.
 class RadixTabs extends StatefulWidget {
+  /// Tab pages to render.
   final List<RadixTab> tabs;
+
+  /// Initial selected tab index. Defaults to 0.
   final int initialIndex;
+
+  /// Padding applied inside each tab page.
   final EdgeInsetsGeometry contentPadding;
+
+  /// Creates Radix tabs.
   const RadixTabs({super.key, required this.tabs, this.initialIndex = 0, this.contentPadding = const EdgeInsets.only(top: 16, bottom: 24)});
 
   @override
@@ -60,9 +68,17 @@ class _RadixTabsState extends State<RadixTabs> with TickerProviderStateMixin {
   }
 }
 
+/// A single tab configuration used by [RadixTabs].
 class RadixTab {
+  /// Tab label.
   final String label;
+
+  /// Tab page widget displayed when selected.
   final Widget content;
+
+  /// Optional leading icon for the tab.
   final Widget? icon;
+
+  /// Creates a tab descriptor.
   const RadixTab({required this.label, required this.content, this.icon});
 }

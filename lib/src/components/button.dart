@@ -32,17 +32,7 @@ class RadixButton extends StatelessWidget {
   final Key? buttonKey;
 
   /// Creates a Radix-styled button.
-  const RadixButton({
-    super.key,
-    required this.child,
-    this.onPressed,
-    this.variant = RadixButtonVariant.solid,
-    this.size = RadixButtonSize.md,
-    this.fullWidth = false,
-    this.color,
-    this.focusNode,
-    this.buttonKey,
-  });
+  const RadixButton({super.key, required this.child, this.onPressed, this.variant = RadixButtonVariant.solid, this.size = RadixButtonSize.md, this.fullWidth = false, this.color, this.focusNode, this.buttonKey});
 
   EdgeInsetsGeometry _padding(RadixButtonSize s) {
     switch (s) {
