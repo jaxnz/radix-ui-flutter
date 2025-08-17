@@ -77,7 +77,7 @@ class SettingsTab extends StatelessWidget {
         _Section(
           title: 'Toast',
           description: null,
-          child: RadixButton(onPressed: () => RadixUI.showToast('Hello from toast'), child: const Text('Show toast')),
+          child: RadixUI.button('Show toast', onPressed: () => RadixUI.showToast('Hello from toast')),
         ),
       ],
     );

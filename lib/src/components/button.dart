@@ -5,16 +5,33 @@ enum RadixButtonVariant { solid, soft, outline, ghost }
 
 enum RadixButtonSize { sm, md, lg }
 
+/// A Radix-styled button supporting multiple visual variants and sizes.
 class RadixButton extends StatelessWidget {
+  /// The button label/content. Typically a [Text] or an [Icon] + [Text].
   final Widget child;
+
+  /// Called when the button is tapped. If null, the button is disabled.
   final VoidCallback? onPressed;
+
+  /// Visual style of the button. Defaults to [RadixButtonVariant.solid].
   final RadixButtonVariant variant;
+
+  /// Size of the button. Controls padding and icon size.
   final RadixButtonSize size;
+
+  /// If true, the button expands to fill the available horizontal space.
   final bool fullWidth;
+
+  /// Optional color override for the button's accent/tint.
   final Color? color;
+
+  /// Optional focus node used for keyboard focus management.
   final FocusNode? focusNode;
+
+  /// Optional key assigned to the underlying [InkWell].
   final Key? buttonKey;
 
+  /// Creates a Radix-styled button.
   const RadixButton({
     super.key,
     required this.child,

@@ -62,11 +62,11 @@ class RadixUI {
 
   // ---------- Convenience builders (no BuildContext required) ----------
 
-  static RadixButton button(String label, {VoidCallback? onPressed, RadixButtonVariant variant = RadixButtonVariant.solid, RadixButtonSize size = RadixButtonSize.md, bool fullWidth = false}) => RadixButton(variant: variant, size: size, fullWidth: fullWidth, onPressed: onPressed, child: Text(label));
+  static RadixButton button(String label, {VoidCallback? onPressed, RadixButtonVariant variant = RadixButtonVariant.solid, RadixButtonSize size = RadixButtonSize.md, bool fullWidth = false, Color? color}) => RadixButton(variant: variant, size: size, fullWidth: fullWidth, color: color, onPressed: onPressed, child: Text(label));
 
   // Back-compat helpers (redirect to button)
-  static RadixButton solidButton(String label, {VoidCallback? onPressed}) => button(label, onPressed: onPressed, variant: RadixButtonVariant.solid);
-  static RadixButton outlineButton(String label, {VoidCallback? onPressed}) => button(label, onPressed: onPressed, variant: RadixButtonVariant.outline);
+  static RadixButton solidButton(String label, {VoidCallback? onPressed, Color? color}) => button(label, onPressed: onPressed, color: color, variant: RadixButtonVariant.solid);
+  static RadixButton outlineButton(String label, {VoidCallback? onPressed, Color? color}) => button(label, onPressed: onPressed, color: color, variant: RadixButtonVariant.outline);
 
   static RadixTextField textField({String? placeholder, TextEditingController? controller, bool obscureText = false}) => RadixTextField(placeholder: placeholder, controller: controller, obscureText: obscureText);
 

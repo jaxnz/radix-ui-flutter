@@ -30,7 +30,7 @@ class _ExampleAppState extends State<ExampleApp> {
 
   @override
   Widget build(BuildContext context) {
-    final base = RadixThemeData(brightness: Brightness.light);
+    final base = RadixThemeData(brightness: Brightness.light, grayScale: RadixColors.mauve, brandScale: RadixColors.violet);
     return MaterialApp(
       navigatorKey: RadixUI.navigatorKey,
       title: 'Radix UI Flutter Example',

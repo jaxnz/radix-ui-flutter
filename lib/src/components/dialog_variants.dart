@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/radix_theme.dart';
-import 'button.dart';
+import 'package:radix_ui_flutter/radix_ui_flutter.dart';
 
 Future<T?> radixConfirmDialog<T>({required BuildContext context, required String title, String? description, String confirmText = 'Confirm', String cancelText = 'Cancel'}) {
   final t = RadixTheme.of(context);
@@ -16,9 +15,9 @@ Future<T?> radixConfirmDialog<T>({required BuildContext context, required String
         side: BorderSide(color: c.border),
       ),
       actions: [
-        RadixButton(variant: RadixButtonVariant.ghost, onPressed: () => Navigator.of(context).pop(false), child: Text(cancelText)),
+        RadixUI.button(cancelText, variant: RadixButtonVariant.ghost, onPressed: () => Navigator.of(context).pop(false)),
         const SizedBox(height: 7),
-        RadixButton(onPressed: () => Navigator.of(context).pop(true), child: Text(confirmText)),
+        RadixUI.button(confirmText, onPressed: () => Navigator.of(context).pop(true)),
       ],
     ),
   );
@@ -37,7 +36,7 @@ Future<void> radixAlertDialog({required BuildContext context, required String ti
         borderRadius: BorderRadius.circular(t.radius2),
         side: BorderSide(color: c.border),
       ),
-      actions: [RadixButton(variant: RadixButtonVariant.ghost, onPressed: () => Navigator.of(context).pop(), child: Text(dismissText))],
+      actions: [RadixUI.button(dismissText, variant: RadixButtonVariant.ghost, onPressed: () => Navigator.of(context).pop())],
     ),
   );
 }
