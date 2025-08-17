@@ -70,25 +70,36 @@ class RadixUI {
   // ---------- Component builders (no BuildContext required) ----------
 
   /// Creates a Radix button.
-  ///
-  /// - [label]: text content of the button
-  /// - [onPressed]: tap callback; if null, the button is disabled
-  /// - [variant]: visual style (solid/soft/outline/ghost); defaults to solid
-  /// - [size]: control size (sm/md/lg); defaults to md
-  /// - [fullWidth]: if true, expands horizontally
-  /// - [color]: optional accent override
-  static RadixButton button(String label, {VoidCallback? onPressed, RadixButtonVariant variant = RadixButtonVariant.solid, RadixButtonSize size = RadixButtonSize.md, bool fullWidth = false, Color? color}) => RadixButton(variant: variant, size: size, fullWidth: fullWidth, color: color, onPressed: onPressed, child: Text(label));
+  static RadixButton button(
+    /// Text content of the button
+    String label, {
+    /// Tap callback; if null, the button is disabled
+    VoidCallback? onPressed,
+    /// Visual style (solid/soft/outline/ghost); defaults to solid
+    RadixButtonVariant variant = RadixButtonVariant.solid,
+    /// Control size (sm/md/lg); defaults to md
+    RadixButtonSize size = RadixButtonSize.md,
+    /// If true, expands horizontally
+    bool fullWidth = false,
+    /// Optional accent override
+    Color? color,
+  }) =>
+      RadixButton(variant: variant, size: size, fullWidth: fullWidth, color: color, onPressed: onPressed, child: Text(label));
 
   // Back-compat helpers (redirect to button)
   static RadixButton solidButton(String label, {VoidCallback? onPressed, Color? color}) => button(label, onPressed: onPressed, color: color, variant: RadixButtonVariant.solid);
   static RadixButton outlineButton(String label, {VoidCallback? onPressed, Color? color}) => button(label, onPressed: onPressed, color: color, variant: RadixButtonVariant.outline);
 
   /// Creates a Radix text field.
-  ///
-  /// - [placeholder]: hint text
-  /// - [controller]: optional text controller
-  /// - [obscureText]: hide input for passwords
-  static RadixTextField textField({String? placeholder, TextEditingController? controller, bool obscureText = false}) => RadixTextField(placeholder: placeholder, controller: controller, obscureText: obscureText);
+  static RadixTextField textField({
+    /// Hint text
+    String? placeholder,
+    /// Optional text controller
+    TextEditingController? controller,
+    /// Hide input for passwords
+    bool obscureText = false,
+  }) =>
+      RadixTextField(placeholder: placeholder, controller: controller, obscureText: obscureText);
 
   /// A switch with a clickable [label].
   ///
@@ -124,13 +135,27 @@ class RadixUI {
   static Widget heading(String value, {int level = 3}) => RadixHeading(value, level: level);
 
   /// Radix card container with optional [header] and [footer].
-  static Widget card({Widget? header, Widget? footer, required Widget child}) => RadixCard(header: header, footer: footer, child: child);
+  static Widget card({
+    /// Optional header widget
+    Widget? header,
+    /// Optional footer widget
+    Widget? footer,
+    /// Main card content
+    required Widget child,
+  }) =>
+      RadixCard(header: header, footer: footer, child: child);
 
   /// Radix badge with [label] and [variant].
   static Widget badge(String label, {RadixBadgeVariant variant = RadixBadgeVariant.solid}) => RadixBadge(label: label, variant: variant);
 
   /// Radix avatar built from [initials].
-  static Widget avatar(String initials, {double size = 28}) => RadixAvatar(initials: initials, size: size);
+  static Widget avatar(
+    /// Initials shown when no image is provided
+    String initials, {
+    /// Avatar size
+    double size = 28,
+  }) =>
+      RadixAvatar(initials: initials, size: size);
 
   /// Radix-styled inline link.
   static Widget link(String textValue, {VoidCallback? onTap}) => RadixLink(textValue, onTap: onTap);
@@ -143,49 +168,132 @@ class RadixUI {
   static Widget checkbox({required bool value, ValueChanged<bool?>? onChanged, String? label}) => RadixCheckbox(value: value, onChanged: onChanged, label: label);
 
   /// Radio group bound to [groupValue] with [options].
-  static Widget radioGroup<T>({required T groupValue, required ValueChanged<T?> onChanged, required List<RadixRadioOption<T>> options}) => RadixRadioGroup<T>(groupValue: groupValue, onChanged: onChanged, options: options);
+  static Widget radioGroup<T>({
+    /// Currently selected value
+    required T groupValue,
+    /// Selection change callback
+    required ValueChanged<T?> onChanged,
+    /// Available options
+    required List<RadixRadioOption<T>> options,
+  }) =>
+      RadixRadioGroup<T>(groupValue: groupValue, onChanged: onChanged, options: options);
 
   /// Select field with [options] and current [value].
-  static Widget select<T>({required T? value, required List<RadixSelectOption<T>> options, ValueChanged<T?>? onChanged}) => RadixSelect<T>(value: value, options: options, onChanged: onChanged);
+  static Widget select<T>({
+    /// Current selected value
+    required T? value,
+    /// Available options
+    required List<RadixSelectOption<T>> options,
+    /// Selection change callback
+    ValueChanged<T?>? onChanged,
+  }) =>
+      RadixSelect<T>(value: value, options: options, onChanged: onChanged);
 
   // Ranges & status
   /// Slider with [value] in [0..max].
-  static Widget slider({required double value, required ValueChanged<double> onChanged, double max = 100}) => RadixSlider(value: value, onChanged: onChanged, max: max);
+  static Widget slider({
+    /// Current value
+    required double value,
+    /// Value change callback
+    required ValueChanged<double> onChanged,
+    /// Maximum value
+    double max = 100,
+  }) =>
+      RadixSlider(value: value, onChanged: onChanged, max: max);
 
   /// Linear progress indicator with [value] in [0..1].
-  static Widget progress({required double value}) => RadixProgress(value: value);
+  static Widget progress({
+    /// Progress in [0..1]
+    required double value,
+  }) =>
+      RadixProgress(value: value);
 
   // Navigation & structure
   /// Tabs with [tabs] pages, optional [initialIndex], and [contentPadding].
-  static Widget tabs({required List<RadixTab> tabs, int initialIndex = 0, EdgeInsetsGeometry contentPadding = const EdgeInsets.fromLTRB(0, 16, 0, 24)}) => RadixTabs(tabs: tabs, initialIndex: initialIndex, contentPadding: contentPadding);
+  static Widget tabs({
+    /// Tab pages
+    required List<RadixTab> tabs,
+    /// Initial selected index
+    int initialIndex = 0,
+    /// Padding inside each tab view
+    EdgeInsetsGeometry contentPadding = const EdgeInsets.fromLTRB(0, 16, 0, 24),
+  }) =>
+      RadixTabs(tabs: tabs, initialIndex: initialIndex, contentPadding: contentPadding);
 
   /// Tooltip wrapping [child].
-  static Widget tooltip({required String message, required Widget child}) => RadixTooltip(message: message, child: child);
+  static Widget tooltip({
+    /// Tooltip text
+    required String message,
+    /// Wrapped widget
+    required Widget child,
+  }) =>
+      RadixTooltip(message: message, child: child);
 
   /// Opens a [RadixDialog] using the configured [navigatorKey].
-  static Future<void> openDialog(RadixDialog dialog) async {
+  static Future<void> openDialog(
+    /// Dialog instance to show
+    RadixDialog dialog,
+  ) async {
     final ctx = _navContext;
     if (ctx == null) return;
     await RadixDialog.show(ctx, dialog);
   }
 
   /// Accordion from [items].
-  static Widget accordion({required List<RadixAccordionItem> items}) => RadixAccordion(items: items);
+  static Widget accordion({
+    /// Items to render
+    required List<RadixAccordionItem> items,
+  }) =>
+      RadixAccordion(items: items);
 
   /// Toggle control with [initialOn] state.
-  static Widget toggle({required bool initialOn, required ValueChanged<bool> onChanged, required Widget child}) => RadixToggle(initialOn: initialOn, onChanged: onChanged, child: child);
+  static Widget toggle({
+    /// Initial on/off state
+    required bool initialOn,
+    /// State change callback
+    required ValueChanged<bool> onChanged,
+    /// Toggle content
+    required Widget child,
+  }) =>
+      RadixToggle(initialOn: initialOn, onChanged: onChanged, child: child);
 
   /// Toggle group with [selected] values and [options].
-  static Widget toggleGroup<T>({required Set<T> selected, required ValueChanged<Set<T>> onChanged, required List<RadixToggleOption<T>> options, bool multiple = true}) => RadixToggleGroup<T>(selected: selected, onChanged: onChanged, options: options, multiple: multiple);
+  static Widget toggleGroup<T>({
+    /// Selected values
+    required Set<T> selected,
+    /// Selection change callback
+    required ValueChanged<Set<T>> onChanged,
+    /// Available options
+    required List<RadixToggleOption<T>> options,
+    /// Enable multi-select
+    bool multiple = true,
+  }) =>
+      RadixToggleGroup<T>(selected: selected, onChanged: onChanged, options: options, multiple: multiple);
 
   /// Form label.
-  static Widget label(String textValue) => RadixLabel(textValue);
+  static Widget label(
+    /// Label text
+    String textValue,
+  ) =>
+      RadixLabel(textValue);
 
   /// Inline alert message with [variant].
-  static Widget alert({required String title, String? description, RadixAlertVariant variant = RadixAlertVariant.success}) => RadixAlert(title: title, description: description, variant: variant);
+  static Widget alert({
+    /// Title text
+    required String title,
+    /// Optional description
+    String? description,
+    /// Variant style
+    RadixAlertVariant variant = RadixAlertVariant.success,
+  }) =>
+      RadixAlert(title: title, description: description, variant: variant);
 
   /// Wraps a subtree with the Radix toast overlay manager.
-  static Widget toastOverlay({required Widget child}) => RadixToastOverlay(child: child);
+  static Widget toastOverlay({
+    /// Subtree wrapped by the toast overlay
+    required Widget child,
+  }) =>
+      RadixToastOverlay(child: child);
 
   // ---------- Context-free UX helpers (require navigatorKey wiring) ----------
 
