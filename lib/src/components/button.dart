@@ -92,38 +92,53 @@ class RadixButton extends StatelessWidget {
     final padding = _padding(size);
     final shape = RoundedRectangleBorder(borderRadius: _radius(t), side: border);
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(minWidth: fullWidth ? double.infinity : 0),
-      child: Material(
-        color: background,
-        shape: shape,
-        child: InkWell(
-          key: buttonKey,
-          focusNode: focusNode,
-          onTap: onPressed,
-          borderRadius: _radius(t),
-          splashColor: overlay,
-          hoverColor: overlay,
-          highlightColor: overlay,
-          child: Padding(
-            padding: padding,
-            child: DefaultTextStyle.merge(
-              style: TextStyle(color: foreground, fontWeight: FontWeight.w600),
-              child: IconTheme.merge(
-                data: IconThemeData(
-                  color: foreground,
-                  size: size == RadixButtonSize.sm
-                      ? 16
-                      : size == RadixButtonSize.md
-                      ? 18
-                      : 20,
-                ),
-                child: Center(child: child),
+    final button = Material(
+      color: background,
+      shape: shape,
+      child: InkWell(
+        key: buttonKey,
+        focusNode: focusNode,
+        onTap: onPressed,
+        borderRadius: _radius(t),
+        splashColor: overlay,
+        hoverColor: overlay,
+        highlightColor: overlay,
+        child: Padding(
+          padding: padding,
+          child: DefaultTextStyle.merge(
+            style: TextStyle(color: foreground, fontWeight: FontWeight.w600),
+            child: IconTheme.merge(
+              data: IconThemeData(
+                color: foreground,
+                size: size == RadixButtonSize.sm
+                    ? 16
+                    : size == RadixButtonSize.md
+                        ? 18
+                        : 20,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [child],
               ),
             ),
           ),
         ),
       ),
+    );
+
+    if (fullWidth) {
+      return SizedBox(
+        width: double.infinity,
+        child: button,
+      );
+    }
+
+    // Shrink-wrap horizontally when not full width, even if parent stretches.
+    return Align(
+      alignment: Alignment.centerLeft,
+      widthFactor: 1,
+      child: button,
     );
   }
 }
