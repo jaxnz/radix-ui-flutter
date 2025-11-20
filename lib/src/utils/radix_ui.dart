@@ -91,10 +91,7 @@ class RadixUI {
   }) {
     assert(label != null || child != null, 'RadixUI.button requires either a label or a child.');
 
-    final effectiveChild = child ??
-        (label != null
-            ? Text(label)
-            : const SizedBox.shrink());
+    final effectiveChild = child ?? (label != null ? Text(label) : const SizedBox.shrink());
 
     return RadixButton(
       variant: variant,
@@ -117,6 +114,8 @@ class RadixUI {
   ///
   /// - [placeholder]: hint text
   /// - [label]: optional floating label
+  /// - [prefixIcon]: optional prefix icon
+  /// - [suffixIcon]: optional suffix icon or action
   /// - [controller]: optional text controller
   /// - [obscureText]: hide input for passwords
   /// - [size]: control size (sm/md/lg); defaults to md
@@ -124,26 +123,30 @@ class RadixUI {
   static RadixTextField textField({
     String? placeholder,
     String? label,
+    Widget? prefixIcon,
+    Widget? suffixIcon,
     TextEditingController? controller,
     bool obscureText = false,
     RadixFieldSize size = RadixFieldSize.md,
     RadixTextFieldVariant variant = RadixTextFieldVariant.surface,
-  }) =>
-      RadixTextField(
-        placeholder: placeholder,
-        label: label,
-        controller: controller,
-        obscureText: obscureText,
-        size: size,
-        variant: variant,
-      );
+  }) => RadixTextField(
+    placeholder: placeholder,
+    label: label,
+    prefixIcon: prefixIcon,
+    suffixIcon: suffixIcon,
+    controller: controller,
+    obscureText: obscureText,
+    size: size,
+    variant: variant,
+  );
 
   /// A switch with a clickable [label].
   ///
   /// - [label]: displayed next to the switch
   /// - [value]: current on/off value
   /// - [onChanged]: change callback
-  static RadixSwitch labeledSwitch(String label, bool value, ValueChanged<bool> onChanged) => RadixSwitch(value: value, onChanged: onChanged, label: label, size: RadixSwitchSize.sm);
+  static RadixSwitch labeledSwitch(String label, bool value, ValueChanged<bool> onChanged) =>
+      RadixSwitch(value: value, onChanged: onChanged, label: label, size: RadixSwitchSize.sm);
 
   /// A standard Radix section composed of a heading, optional description, and [child].
   ///
@@ -157,7 +160,10 @@ class RadixUI {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (description != null) ...[text(description, style: TextStyle(color: c.textSubtle)), const SizedBox(height: 10)],
+          if (description != null) ...[
+            text(description, style: TextStyle(color: c.textSubtle)),
+            const SizedBox(height: 10),
+          ],
           child,
         ],
       ),
@@ -166,7 +172,8 @@ class RadixUI {
 
   // ---------- Basic content helpers ----------
   /// Radix-styled text.
-  static Widget text(String value, {TextStyle? style, TextAlign? align, int? maxLines}) => RadixText(value, style: style, align: align, maxLines: maxLines);
+  static Widget text(String value, {TextStyle? style, TextAlign? align, int? maxLines}) =>
+      RadixText(value, style: style, align: align, maxLines: maxLines);
 
   /// Radix-styled heading. [level] ranges 1..6.
   static Widget heading(String value, {int level = 3}) => RadixHeading(value, level: level);
@@ -184,7 +191,8 @@ class RadixUI {
   }) => RadixCard(header: header, footer: footer, child: child);
 
   /// Radix badge with [label] and [variant].
-  static Widget badge(String label, {RadixBadgeVariant variant = RadixBadgeVariant.solid}) => RadixBadge(label: label, variant: variant);
+  static Widget badge(String label, {RadixBadgeVariant variant = RadixBadgeVariant.solid}) =>
+      RadixBadge(label: label, variant: variant);
 
   /// Radix avatar built from [initials].
   static Widget avatar(
@@ -203,7 +211,8 @@ class RadixUI {
 
   // Inputs & choices
   /// Checkbox with optional [label].
-  static Widget checkbox({required bool value, ValueChanged<bool?>? onChanged, String? label}) => RadixCheckbox(value: value, onChanged: onChanged, label: label);
+  static Widget checkbox({required bool value, ValueChanged<bool?>? onChanged, String? label}) =>
+      RadixCheckbox(value: value, onChanged: onChanged, label: label);
 
   /// Radio group bound to [groupValue] with [options].
   static Widget radioGroup<T>({
@@ -219,7 +228,11 @@ class RadixUI {
 
   /// Select field with [options] and current [value].
   /// - [onChanged]: selection change callback
-  static Widget select<T>({required T? value, required List<RadixSelectOption<T>> options, ValueChanged<T?>? onChanged}) => RadixSelect<T>(value: value, options: options, onChanged: onChanged);
+  static Widget select<T>({
+    required T? value,
+    required List<RadixSelectOption<T>> options,
+    ValueChanged<T?>? onChanged,
+  }) => RadixSelect<T>(value: value, options: options, onChanged: onChanged);
 
   // Ranges & status
   /// Slider with [value] in [0..max].
@@ -303,7 +316,12 @@ class RadixUI {
 
     /// Enable multi-select
     bool multiple = true,
-  }) => RadixToggleGroup<T>(selected: selected, onChanged: onChanged, options: options, multiple: multiple);
+  }) => RadixToggleGroup<T>(
+    selected: selected,
+    onChanged: onChanged,
+    options: options,
+    multiple: multiple,
+  );
 
   /// Form label.
   static Widget label(
@@ -347,14 +365,29 @@ class RadixUI {
   /// - [title]: dialog title
   /// - [description]: optional body
   /// - [confirmText]/[cancelText]: action labels
-  static Future<T?> confirm<T>({required String title, String? description, String confirmText = 'Confirm', String cancelText = 'Cancel'}) {
+  static Future<T?> confirm<T>({
+    required String title,
+    String? description,
+    String confirmText = 'Confirm',
+    String cancelText = 'Cancel',
+  }) {
     final ctx = _navContext;
     if (ctx == null) return Future<T?>.value(null);
-    return radixConfirmDialog<T>(context: ctx, title: title, description: description, confirmText: confirmText, cancelText: cancelText);
+    return radixConfirmDialog<T>(
+      context: ctx,
+      title: title,
+      description: description,
+      confirmText: confirmText,
+      cancelText: cancelText,
+    );
   }
 
   /// Shows a toast via [RadixToastOverlay] if present, otherwise falls back to a SnackBar.
-  static void showToast(String message, {Duration duration = const Duration(seconds: 3), Color? background}) {
+  static void showToast(
+    String message, {
+    Duration duration = const Duration(seconds: 3),
+    Color? background,
+  }) {
     final ctx = _navContext;
     if (ctx == null) return;
     final controller = RadixToastOverlay.of(ctx);

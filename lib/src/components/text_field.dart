@@ -17,6 +17,12 @@ class RadixTextField extends StatelessWidget {
   /// Optional floating label text.
   final String? label;
 
+  /// Optional prefix icon.
+  final Widget? prefixIcon;
+
+  /// Optional suffix icon or action.
+  final Widget? suffixIcon;
+
   /// If true, masks the input (e.g., for passwords). Defaults to false.
   final bool obscureText;
 
@@ -27,15 +33,7 @@ class RadixTextField extends StatelessWidget {
   final RadixTextFieldVariant variant;
 
   /// Creates a Radix text field.
-  const RadixTextField({
-    super.key,
-    this.controller,
-    this.placeholder,
-    this.label,
-    this.obscureText = false,
-    this.size = RadixFieldSize.md,
-    this.variant = RadixTextFieldVariant.surface,
-  });
+  const RadixTextField({super.key, this.controller, this.placeholder, this.label, this.prefixIcon, this.suffixIcon, this.obscureText = false, this.size = RadixFieldSize.md, this.variant = RadixTextFieldVariant.surface});
 
   EdgeInsetsGeometry get _padding => switch (size) {
     RadixFieldSize.sm => const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -90,6 +88,8 @@ class RadixTextField extends StatelessWidget {
         contentPadding: _padding,
         labelText: label,
         hintText: placeholder,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
         filled: filled,
         fillColor: fillColor,
         border: OutlineInputBorder(
