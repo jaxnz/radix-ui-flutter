@@ -65,9 +65,9 @@ class SettingsTab extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  RadixUI.button('Create an account', variant: RadixButtonVariant.soft, onPressed: () {}),
+                  RadixUI.button(label: 'Create an account', variant: RadixButtonVariant.soft, onPressed: () {}),
                   const SizedBox(width: 10),
-                  RadixUI.button('Sign in', onPressed: () {}),
+                  RadixUI.button(label: 'Sign in', onPressed: () {}),
                 ],
               ),
             ],
@@ -77,7 +77,7 @@ class SettingsTab extends StatelessWidget {
         _Section(
           title: 'Toast',
           description: null,
-          child: RadixUI.button('Show toast', onPressed: () => RadixUI.showToast('Hello from toast')),
+          child: RadixUI.button(label: 'Show toast', onPressed: () => RadixUI.showToast('Hello from toast')),
         ),
       ],
     );

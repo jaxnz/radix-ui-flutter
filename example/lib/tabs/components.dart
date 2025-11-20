@@ -29,10 +29,10 @@ class _ComponentsTabState extends State<ComponentsTab> {
             spacing: 8,
             runSpacing: 8,
             children: [
-              RadixUI.button('Solid', onPressed: () {}),
-              RadixUI.button('Soft', variant: RadixButtonVariant.soft, onPressed: () {}),
-              RadixUI.button('Outline', variant: RadixButtonVariant.outline, onPressed: () {}),
-              RadixUI.button('Ghost', variant: RadixButtonVariant.ghost, onPressed: () {}),
+              RadixUI.button(label: 'Solid', onPressed: () {}),
+              RadixUI.button(label: 'Soft', variant: RadixButtonVariant.soft, onPressed: () {}),
+              RadixUI.button(label: 'Outline', variant: RadixButtonVariant.outline, onPressed: () {}),
+              RadixUI.button(label: 'Ghost', variant: RadixButtonVariant.ghost, onPressed: () {}),
             ],
           ),
         ),
@@ -127,15 +127,15 @@ class _ComponentsTabState extends State<ComponentsTab> {
             spacing: 8,
             children: [
               RadixUI.button(
-                'Open Dialog',
+                label: 'Open Dialog',
                 onPressed: () => RadixUI.openDialog(const RadixDialog(title: 'Dialog', content: RadixText('Hello'))),
               ),
               RadixUI.button(
-                'Alert',
+                label: 'Alert',
                 onPressed: () => radixAlertDialog(context: context, title: 'Alert', description: 'Pay attention.'),
               ),
               RadixUI.button(
-                'Confirm',
+                label: 'Confirm',
                 onPressed: () => radixConfirmDialog(context: context, title: 'Confirm'),
               ),
             ],

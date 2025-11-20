@@ -22,6 +22,9 @@ class RadixButton extends StatelessWidget {
   /// If true, the button expands to fill the available horizontal space.
   final bool fullWidth;
 
+  /// If true, shows a loading indicator and disables taps.
+  final bool isLoading;
+
   /// Optional color override for the button's accent/tint.
   final Color? color;
 
@@ -32,7 +35,18 @@ class RadixButton extends StatelessWidget {
   final Key? buttonKey;
 
   /// Creates a Radix-styled button.
-  const RadixButton({super.key, required this.child, this.onPressed, this.variant = RadixButtonVariant.solid, this.size = RadixButtonSize.md, this.fullWidth = false, this.color, this.focusNode, this.buttonKey});
+  const RadixButton({
+    super.key,
+    required this.child,
+    this.onPressed,
+    this.variant = RadixButtonVariant.solid,
+    this.size = RadixButtonSize.md,
+    this.fullWidth = false,
+    this.isLoading = false,
+    this.color,
+    this.focusNode,
+    this.buttonKey,
+  });
 
   EdgeInsetsGeometry _padding(RadixButtonSize s) {
     switch (s) {
@@ -91,6 +105,11 @@ class RadixButton extends StatelessWidget {
 
     final padding = _padding(size);
     final shape = RoundedRectangleBorder(borderRadius: _radius(t), side: border);
+    final indicatorSize = size == RadixButtonSize.sm
+        ? 14.0
+        : size == RadixButtonSize.md
+            ? 16.0
+            : 18.0;
 
     final button = Material(
       color: background,
@@ -98,7 +117,7 @@ class RadixButton extends StatelessWidget {
       child: InkWell(
         key: buttonKey,
         focusNode: focusNode,
-        onTap: onPressed,
+        onTap: isLoading ? null : onPressed,
         borderRadius: _radius(t),
         splashColor: overlay,
         hoverColor: overlay,
@@ -119,7 +138,20 @@ class RadixButton extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [child],
+                children: [
+                  if (isLoading) ...[
+                    SizedBox(
+                      width: indicatorSize,
+                      height: indicatorSize,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(foreground),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+                  child,
+                ],
               ),
             ),
           ),

@@ -45,7 +45,7 @@ class BillingTab extends StatelessWidget {
                 ),
                 RadixUI.badge('01 / 27', variant: RadixBadgeVariant.outline),
                 const SizedBox(width: 8),
-                RadixUI.button('Freeze', variant: RadixButtonVariant.ghost, onPressed: null),
+                RadixUI.button(label: 'Freeze', variant: RadixButtonVariant.ghost, onPressed: null),
               ],
             ),
           ),
@@ -106,7 +106,7 @@ class _PricingCard extends StatelessWidget {
       height: 320,
       child: RadixUI.card(
         header: RadixUI.heading(title, level: 3),
-        footer: RadixUI.button(cta, variant: outline ? RadixButtonVariant.outline : RadixButtonVariant.solid, onPressed: () {}),
+        footer: RadixUI.button(label: cta, variant: outline ? RadixButtonVariant.outline : RadixButtonVariant.solid, onPressed: () {}),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

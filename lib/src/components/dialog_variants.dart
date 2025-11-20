@@ -15,9 +15,9 @@ Future<T?> radixConfirmDialog<T>({required BuildContext context, required String
         side: BorderSide(color: c.border),
       ),
       actions: [
-        RadixUI.button(cancelText, variant: RadixButtonVariant.ghost, onPressed: () => Navigator.of(context).pop(false)),
+        RadixUI.button(label: cancelText, variant: RadixButtonVariant.ghost, onPressed: () => Navigator.of(context).pop(false)),
         const SizedBox(height: 7),
-        RadixUI.button(confirmText, onPressed: () => Navigator.of(context).pop(true)),
+        RadixUI.button(label: confirmText, onPressed: () => Navigator.of(context).pop(true)),
       ],
     ),
   );
@@ -36,7 +36,7 @@ Future<void> radixAlertDialog({required BuildContext context, required String ti
         borderRadius: BorderRadius.circular(t.radius2),
         side: BorderSide(color: c.border),
       ),
-      actions: [RadixUI.button(dismissText, variant: RadixButtonVariant.ghost, onPressed: () => Navigator.of(context).pop())],
+      actions: [RadixUI.button(label: dismissText, variant: RadixButtonVariant.ghost, onPressed: () => Navigator.of(context).pop())],
     ),
   );
 }

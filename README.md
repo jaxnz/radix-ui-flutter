@@ -42,9 +42,9 @@ class DemoPage extends StatelessWidget {
             RadixUI.text('A design-system friendly Flutter UI kit.'),
             const SizedBox(height: 16),
             Row(children: [
-              RadixUI.button('Primary', onPressed: () {}),
+              RadixUI.button(label: 'Primary', onPressed: () {}),
               const SizedBox(width: 8),
-              RadixUI.button('Secondary', variant: RadixButtonVariant.outline, onPressed: () {}),
+              RadixUI.button(label: 'Secondary', variant: RadixButtonVariant.outline, onPressed: () {}),
             ]),
             const SizedBox(height: 16),
             RadixUI.badge('New'),
@@ -76,7 +76,7 @@ MaterialApp(
 ## RadixUI API
 
 - Structure/content: `section`, `card`, `text`, `heading`, `separator`, `badge`, `avatar`, `link`
-- Buttons: `button(label, {variant, size, fullWidth, onPressed, color})`
+- Buttons: `button({label, child, variant, size, fullWidth, isLoading, onPressed, color})`
 - Inputs: `textField`, `labeledSwitch`, `checkbox`, `radioGroup`, `select`
 - Ranges/status: `slider`, `progress`
 - Navigation/overlays: `tabs`, `tooltip`, `openDialog(RadixDialog)`, `accordion`, `toggle`, `toggleGroup`
@@ -89,7 +89,7 @@ RadixUI.section(
   child: Column(children: [
     RadixUI.textField(placeholder: 'Email'),
     const SizedBox(height: 12),
-    RadixUI.button('Create account', variant: RadixButtonVariant.soft, onPressed: () {}),
+    RadixUI.button(label: 'Create account', variant: RadixButtonVariant.soft, onPressed: () {}),
   ]),
 )
 ```

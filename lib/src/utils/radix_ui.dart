@@ -71,17 +71,47 @@ class RadixUI {
 
   /// Creates a Radix button.
   ///
-  /// - [label]: text content of the button
+  /// - [label]: text content of the button (used if [child] is null)
+  /// - [child]: custom widget content for the button; when provided, [label] is ignored
   /// - [onPressed]: tap callback; if null, the button is disabled
   /// - [variant]: visual style (solid/soft/outline/ghost); defaults to solid
   /// - [size]: control size (sm/md/lg); defaults to md
   /// - [fullWidth]: if true, expands horizontally
+  /// - [isLoading]: show a loading indicator and disable taps
   /// - [color]: optional accent override
-  static RadixButton button(String label, {VoidCallback? onPressed, RadixButtonVariant variant = RadixButtonVariant.solid, RadixButtonSize size = RadixButtonSize.md, bool fullWidth = false, Color? color}) => RadixButton(variant: variant, size: size, fullWidth: fullWidth, color: color, onPressed: onPressed, child: Text(label));
+  static RadixButton button({
+    String? label,
+    Widget? child,
+    VoidCallback? onPressed,
+    RadixButtonVariant variant = RadixButtonVariant.solid,
+    RadixButtonSize size = RadixButtonSize.md,
+    bool fullWidth = false,
+    bool isLoading = false,
+    Color? color,
+  }) {
+    assert(label != null || child != null, 'RadixUI.button requires either a label or a child.');
+
+    final effectiveChild = child ??
+        (label != null
+            ? Text(label)
+            : const SizedBox.shrink());
+
+    return RadixButton(
+      variant: variant,
+      size: size,
+      fullWidth: fullWidth,
+      isLoading: isLoading,
+      color: color,
+      onPressed: onPressed,
+      child: effectiveChild,
+    );
+  }
 
   // Back-compat helpers (redirect to button)
-  static RadixButton solidButton(String label, {VoidCallback? onPressed, Color? color}) => button(label, onPressed: onPressed, color: color, variant: RadixButtonVariant.solid);
-  static RadixButton outlineButton(String label, {VoidCallback? onPressed, Color? color}) => button(label, onPressed: onPressed, color: color, variant: RadixButtonVariant.outline);
+  static RadixButton solidButton(String label, {VoidCallback? onPressed, Color? color}) =>
+      button(label: label, onPressed: onPressed, color: color, variant: RadixButtonVariant.solid);
+  static RadixButton outlineButton(String label, {VoidCallback? onPressed, Color? color}) =>
+      button(label: label, onPressed: onPressed, color: color, variant: RadixButtonVariant.outline);
 
   /// Creates a Radix text field.
   ///

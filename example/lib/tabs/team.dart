@@ -78,7 +78,7 @@ class _InviteRowState extends State<_InviteRow> {
           child: RadixUI.textField(placeholder: 'Email address', controller: _controller),
         ),
         const SizedBox(width: 8),
-        RadixUI.button('Invite', onPressed: () {}),
+        RadixUI.button(label: 'Invite', onPressed: () {}),
       ],
     );
   }
