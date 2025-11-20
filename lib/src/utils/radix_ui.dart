@@ -227,12 +227,14 @@ class RadixUI {
   }) => RadixRadioGroup<T>(groupValue: groupValue, onChanged: onChanged, options: options);
 
   /// Select field with [options] and current [value].
+  /// - [size]: control size (sm/md/lg); defaults to md
   /// - [onChanged]: selection change callback
   static Widget select<T>({
     required T? value,
     required List<RadixSelectOption<T>> options,
+    RadixSelectSize size = RadixSelectSize.md,
     ValueChanged<T?>? onChanged,
-  }) => RadixSelect<T>(value: value, options: options, onChanged: onChanged);
+  }) => RadixSelect<T>(value: value, options: options, onChanged: onChanged, size: size);
 
   // Ranges & status
   /// Slider with [value] in [0..max].
