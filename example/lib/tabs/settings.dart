@@ -39,7 +39,7 @@ class SettingsTab extends StatelessWidget {
             children: [
               const RadixText('Email address'),
               const SizedBox(height: 6),
-              RadixUI.textField(placeholder: 'Enter your email'),
+              RadixUI.textField(placeholder: 'Enter your email', variant: RadixTextFieldVariant.surface),
               const SizedBox(height: 12),
               Row(
                 children: [
@@ -55,7 +55,7 @@ class SettingsTab extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 6),
-                        RadixUI.textField(obscureText: true, placeholder: 'Enter your password'),
+                        RadixUI.textField(obscureText: true, placeholder: 'Enter your password', variant: RadixTextFieldVariant.surface),
                       ],
                     ),
                   ),

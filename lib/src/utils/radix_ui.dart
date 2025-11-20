@@ -116,9 +116,27 @@ class RadixUI {
   /// Creates a Radix text field.
   ///
   /// - [placeholder]: hint text
+  /// - [label]: optional floating label
   /// - [controller]: optional text controller
   /// - [obscureText]: hide input for passwords
-  static RadixTextField textField({String? placeholder, TextEditingController? controller, bool obscureText = false}) => RadixTextField(placeholder: placeholder, controller: controller, obscureText: obscureText);
+  /// - [size]: control size (sm/md/lg); defaults to md
+  /// - [variant]: visual style (surface/classic/soft); defaults to surface
+  static RadixTextField textField({
+    String? placeholder,
+    String? label,
+    TextEditingController? controller,
+    bool obscureText = false,
+    RadixFieldSize size = RadixFieldSize.md,
+    RadixTextFieldVariant variant = RadixTextFieldVariant.surface,
+  }) =>
+      RadixTextField(
+        placeholder: placeholder,
+        label: label,
+        controller: controller,
+        obscureText: obscureText,
+        size: size,
+        variant: variant,
+      );
 
   /// A switch with a clickable [label].
   ///

@@ -77,7 +77,7 @@ MaterialApp(
 
 - Structure/content: `section`, `card`, `text`, `heading`, `separator`, `badge`, `avatar`, `link`
 - Buttons: `button({label, child, variant, size, fullWidth, isLoading, onPressed, color})`
-- Inputs: `textField`, `labeledSwitch`, `checkbox`, `radioGroup`, `select`
+- Inputs: `textField({placeholder, label, controller, obscureText, size, variant})`, `labeledSwitch`, `checkbox`, `radioGroup`, `select`
 - Ranges/status: `slider`, `progress`
 - Navigation/overlays: `tabs`, `tooltip`, `openDialog(RadixDialog)`, `accordion`, `toggle`, `toggleGroup`
 - Global UX: `showToast`, `confirm`, `appBuilder`, `setNavigatorKey`
@@ -87,7 +87,7 @@ Example:
 RadixUI.section(
   title: 'Sign up',
   child: Column(children: [
-    RadixUI.textField(placeholder: 'Email'),
+    RadixUI.textField(placeholder: 'Email', variant: RadixTextFieldVariant.surface),
     const SizedBox(height: 12),
     RadixUI.button(label: 'Create account', variant: RadixButtonVariant.soft, onPressed: () {}),
   ]),
