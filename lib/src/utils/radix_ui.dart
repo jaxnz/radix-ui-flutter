@@ -129,6 +129,7 @@ class RadixUI {
     bool obscureText = false,
     RadixFieldSize size = RadixFieldSize.md,
     RadixTextFieldVariant variant = RadixTextFieldVariant.surface,
+    ValueChanged<String>? onChanged,
   }) => RadixTextField(
     placeholder: placeholder,
     label: label,
@@ -138,6 +139,7 @@ class RadixUI {
     obscureText: obscureText,
     size: size,
     variant: variant,
+    onChanged: onChanged,
   );
 
   /// A switch with a clickable [label].

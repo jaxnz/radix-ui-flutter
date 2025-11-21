@@ -32,8 +32,22 @@ class RadixTextField extends StatelessWidget {
   /// Visual variant controlling background and border style.
   final RadixTextFieldVariant variant;
 
+  /// Optional change callback for text input.
+  final ValueChanged<String>? onChanged;
+
   /// Creates a Radix text field.
-  const RadixTextField({super.key, this.controller, this.placeholder, this.label, this.prefixIcon, this.suffixIcon, this.obscureText = false, this.size = RadixFieldSize.md, this.variant = RadixTextFieldVariant.surface});
+  const RadixTextField({
+    super.key,
+    this.controller,
+    this.placeholder,
+    this.label,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.obscureText = false,
+    this.size = RadixFieldSize.md,
+    this.variant = RadixTextFieldVariant.surface,
+    this.onChanged,
+  });
 
   EdgeInsetsGeometry get _padding => switch (size) {
     RadixFieldSize.sm => const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -82,6 +96,7 @@ class RadixTextField extends StatelessWidget {
     return TextField(
       controller: controller,
       obscureText: obscureText,
+      onChanged: onChanged,
       style: TextStyle(color: c.text, fontSize: _fontSize),
       decoration: InputDecoration(
         isDense: true,
