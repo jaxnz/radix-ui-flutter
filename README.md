@@ -94,6 +94,43 @@ RadixUI.section(
 )
 ```
 
+### Global dialogs and toasts
+
+Some helpers (`openDialog`, `confirm`, `showToast`) use a global navigator key. To enable them:
+
+```dart
+void main() {
+  final base = RadixThemeData(
+    brightness: Brightness.light,
+    grayScale: RadixColors.mauve,
+    brandScale: RadixColors.violet,
+  );
+
+  // Wire RadixUI up to the app navigator
+  final navKey = GlobalKey<NavigatorState>();
+  RadixUI.setNavigatorKey(navKey);
+
+  runApp(MaterialApp(
+    navigatorKey: navKey,
+    theme: base.toMaterialTheme(),
+    darkTheme: base.copyWith(brightness: Brightness.dark).toMaterialTheme(),
+    builder: RadixUI.appBuilder(base),
+    home: const DemoPage(),
+  ));
+}
+```
+
+You can then open dialogs from anywhere (no `BuildContext` needed):
+
+```dart
+RadixUI.openDialog(
+  const RadixDialog(
+    title: 'Dialog title',
+    content: RadixText('Dialog body'),
+  ),
+);
+```
+
 ## Icons
 
 Use minimal SVG-based icons:
