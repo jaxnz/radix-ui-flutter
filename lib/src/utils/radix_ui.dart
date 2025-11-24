@@ -231,12 +231,15 @@ class RadixUI {
   /// Select field with [options] and current [value].
   /// - [size]: control size (sm/md/lg); defaults to md
   /// - [onChanged]: selection change callback
+  /// - [hint]: Displays a hint when no [options] are selected
   static Widget select<T>({
     required T? value,
     required List<RadixSelectOption<T>> options,
     RadixSelectSize size = RadixSelectSize.md,
     ValueChanged<T?>? onChanged,
-  }) => RadixSelect<T>(value: value, options: options, onChanged: onChanged, size: size);
+    String? hint,
+  }) =>
+      RadixSelect<T>(value: value, options: options, onChanged: onChanged, size: size, hint: hint);
 
   // Ranges & status
   /// Slider with [value] in [0..max].
