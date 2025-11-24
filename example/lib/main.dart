@@ -30,7 +30,7 @@ class _ExampleAppState extends State<ExampleApp> {
 
   @override
   Widget build(BuildContext context) {
-    final base = RadixThemeData(brightness: Brightness.light, grayScale: RadixColors.mauve, brandScale: RadixColors.violet);
+    final base = RadixThemeData(brightness: Brightness.light, grayScale: RadixColorScales.mauve, brandScale: RadixColorScales.violet);
     return MaterialApp(
       navigatorKey: RadixUI.navigatorKey,
       title: 'Radix UI Flutter Example',
@@ -64,24 +64,22 @@ class _DemoPageState extends State<DemoPage> {
         title: const Text('Radix UI Flutter Example'),
         actions: [IconButton(tooltip: widget.dark ? 'Switch to light' : 'Switch to dark', onPressed: widget.onToggleTheme, icon: Icon(widget.dark ? Icons.dark_mode : Icons.light_mode))],
       ),
-      body: RadixUI.toastOverlay(
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1200),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-              child: RadixUI.tabs(
-                tabs: [
-                  const RadixTab(label: 'Team', content: TeamTab()),
-                  RadixTab(
-                    label: 'Settings',
-                    content: SettingsTab(comments: comments, favorites: favorites, newDocs: newDocs, onComments: (v) => setState(() => comments = v), onFavorites: (v) => setState(() => favorites = v), onNewDocs: (v) => setState(() => newDocs = v)),
-                  ),
-                  const RadixTab(label: 'Billing', content: BillingTab()),
-                  const RadixTab(label: 'Reports', content: ReportsTab()),
-                  const RadixTab(label: 'Components', content: ComponentsTab()),
-                ],
-              ),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+            child: RadixUI.tabs(
+              tabs: [
+                const RadixTab(label: 'Team', content: TeamTab()),
+                RadixTab(
+                  label: 'Settings',
+                  content: SettingsTab(comments: comments, favorites: favorites, newDocs: newDocs, onComments: (v) => setState(() => comments = v), onFavorites: (v) => setState(() => favorites = v), onNewDocs: (v) => setState(() => newDocs = v)),
+                ),
+                const RadixTab(label: 'Billing', content: BillingTab()),
+                const RadixTab(label: 'Reports', content: ReportsTab()),
+                const RadixTab(label: 'Components', content: ComponentsTab()),
+              ],
             ),
           ),
         ),

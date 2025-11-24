@@ -14,13 +14,39 @@ class RadixThemeData {
 
   late final RadixSemanticColors colors = _computeSemanticColors();
 
-  RadixThemeData({required this.brightness, this.grayScale = RadixColors.gray, this.brandScale = RadixColors.blue, this.radius1 = 6.0, this.radius2 = 8.0, this.radius3 = 12.0, this.contentPadding = const EdgeInsets.symmetric(horizontal: 12, vertical: 8)});
+  RadixThemeData({required this.brightness, this.grayScale = RadixColorScales.gray, this.brandScale = RadixColorScales.blue, this.radius1 = 6.0, this.radius2 = 8.0, this.radius3 = 12.0, this.contentPadding = const EdgeInsets.symmetric(horizontal: 12, vertical: 8)});
 
   ThemeData toMaterialTheme() {
     final c = colors;
-    final colorScheme = ColorScheme(brightness: brightness, primary: c.accent, onPrimary: c.accentText, secondary: c.surface, onSecondary: c.text, error: c.danger, onError: Colors.white, surface: c.surface, onSurface: c.text);
+    final primarySwatch = brandScale.toMaterialColor(brightness: brightness);
+    final schemeBase = ColorScheme.fromSwatch(
+      primarySwatch: primarySwatch,
+      brightness: brightness,
+      backgroundColor: c.background,
+      cardColor: c.surface,
+      errorColor: c.danger,
+    );
+    final colorScheme = schemeBase.copyWith(
+      primary: c.accent,
+      onPrimary: c.accentText,
+      secondary: c.surface,
+      onSecondary: c.text,
+      surface: c.surface,
+      onSurface: c.text,
+      background: c.background,
+      error: c.danger,
+      onError: Colors.white,
+      outline: c.border,
+    );
 
-    return ThemeData(colorScheme: colorScheme, brightness: brightness, useMaterial3: true, scaffoldBackgroundColor: c.background, textTheme: brightness == Brightness.dark ? Typography.whiteMountainView : Typography.blackMountainView);
+    return ThemeData(
+      colorScheme: colorScheme,
+      brightness: brightness,
+      primarySwatch: primarySwatch,
+      useMaterial3: true,
+      scaffoldBackgroundColor: c.background,
+      textTheme: brightness == Brightness.dark ? Typography.whiteMountainView : Typography.blackMountainView,
+    );
   }
 
   RadixSemanticColors _computeSemanticColors() {
@@ -36,9 +62,9 @@ class RadixThemeData {
       border: gray.byStep(6, brightness: b),
       accent: brand.byStep(9, brightness: b),
       accentText: b == Brightness.dark ? Colors.black : Colors.white,
-      success: RadixColors.green.byStep(9, brightness: b),
-      warning: RadixColors.amber.byStep(9, brightness: b),
-      danger: RadixColors.red.byStep(9, brightness: b),
+      success: RadixColorScales.green.byStep(9, brightness: b),
+      warning: RadixColorScales.amber.byStep(9, brightness: b),
+      danger: RadixColorScales.red.byStep(9, brightness: b),
     );
   }
 

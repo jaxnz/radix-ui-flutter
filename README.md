@@ -63,8 +63,8 @@ Use `RadixThemeData` to control palettes, radii, and spacing. Provide it via `Ra
 ```dart
 final base = RadixThemeData(
   brightness: Brightness.light,
-  grayScale: RadixColors.mauve,
-  brandScale: RadixColors.violet,
+  grayScale: RadixColorScales.mauve,
+  brandScale: RadixColorScales.violet,
 );
 MaterialApp(
   theme: base.toMaterialTheme(),
@@ -102,8 +102,8 @@ Some helpers (`openDialog`, `confirm`, `showToast`) use a global navigator key. 
 void main() {
   final base = RadixThemeData(
     brightness: Brightness.light,
-    grayScale: RadixColors.mauve,
-    brandScale: RadixColors.violet,
+    grayScale: RadixColorScales.mauve,
+    brandScale: RadixColorScales.violet,
   );
 
   // Wire RadixUI up to the app navigator
@@ -141,7 +141,45 @@ RadixIcon.check(size: 18)
 
 ## Colors
 
-Access color scales and semantic colors via `RadixColors` and `RadixTheme.of(context).colors`.
+Use simple shades or full scales:
+
+```dart
+// Super simple: Material-style swatches (light by default)
+final accent700 = RadixColors.violet.shade700;
+final success500Dark = RadixColors.dark.green.shade500;
+
+// Full 12-step scales (light/dark aware)
+final violet9 = RadixColorScales.violet.byStep(9, brightness: Brightness.light);
+final green11 = RadixColorScales.green.byStep(11, brightness: Brightness.dark);
+
+// Theme-scoped semantic colors (auto switch with brightness)
+final c = RadixTheme.of(context).colors;
+Container(
+  padding: const EdgeInsets.all(12),
+  decoration: BoxDecoration(
+    color: c.surface,
+    border: Border.all(color: c.border),
+    borderRadius: BorderRadius.circular(RadixTheme.of(context).radius2),
+  ),
+  child: Text('Toast saved', style: TextStyle(color: c.text)),
+);
+
+// Also available without a BuildContext when using RadixUI.appBuilder/RadixScope
+final accent = RadixUI.colors.accent;
+```
+
+Customize palettes by swapping `grayScale` (neutral) and `brandScale` (accent) on `RadixThemeData`:
+
+```dart
+final theme = RadixThemeData(
+  brightness: Brightness.light,
+  grayScale: RadixColorScales.mauve, // neutral base
+  brandScale: RadixColorScales.violet, // accent base
+);
+
+// RadixThemeData.toMaterialTheme() wires the swatch + semantic colors automatically
+final themeData = theme.toMaterialTheme(); // contains a Material swatch derived from brandScale
+```
 
 ## License
 

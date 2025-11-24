@@ -1,71 +1,84 @@
 import 'package:flutter/material.dart';
+import '../theme/radix_theme.dart';
 
-class RadixToastOverlay extends StatefulWidget {
-  final Widget child;
-  const RadixToastOverlay({super.key, required this.child});
-
-  static RadixToastController? of(BuildContext context) => context.findAncestorStateOfType<_RadixToastOverlayState>();
-
-  @override
-  State<RadixToastOverlay> createState() => _RadixToastOverlayState();
+/// Placement options for Radix toasts.
+enum RadixToastPosition {
+  bottomRight,
+  bottomCenter,
 }
 
-class _RadixToastOverlayState extends State<RadixToastOverlay> implements RadixToastController {
-  final List<_ToastEntry> _toasts = [];
+/// Internal host for Radix toasts. Used by [RadixUI.showToast].
+class RadixToastHost {
+  static OverlayEntry? _entry;
 
-  @override
-  void show(String message, {Duration duration = const Duration(seconds: 3), Color? background}) {
-    final entry = _ToastEntry(message: message, background: background);
-    setState(() => _toasts.add(entry));
+  static void show(
+    BuildContext context, {
+    required String message,
+    Duration duration = const Duration(seconds: 3),
+    Color? background,
+    RadixToastPosition position = RadixToastPosition.bottomRight,
+    OverlayState? overlayState,
+  }) {
+    final overlay = overlayState ?? Overlay.of(context, rootOverlay: true);
+    if (overlay == null) return;
+
+    // Only one toast at a time for simplicity.
+    _entry?.remove();
+    _entry = null;
+
+    late OverlayEntry entry;
+    entry = OverlayEntry(
+      builder: (ctx) {
+        final theme = RadixTheme.of(ctx);
+        final colors = theme.colors;
+        final bg = background ?? colors.surface;
+
+        final card = Material(
+          color: bg,
+          elevation: 12,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(theme.radius2),
+            side: BorderSide(color: colors.border),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: DefaultTextStyle(
+              style: TextStyle(
+                color: colors.text,
+                fontSize: 14,
+              ),
+              child: Text(message),
+            ),
+          ),
+        );
+
+        switch (position) {
+          case RadixToastPosition.bottomCenter:
+            return Positioned(
+              left: 24,
+              right: 24,
+              bottom: 24,
+              child: Center(child: card),
+            );
+          case RadixToastPosition.bottomRight:
+          default:
+            return Positioned(
+              right: 24,
+              bottom: 24,
+              child: card,
+            );
+        }
+      },
+    );
+
+    _entry = entry;
+    overlay.insert(entry);
+
     Future.delayed(duration, () {
-      if (mounted) setState(() => _toasts.remove(entry));
+      if (_entry == entry) {
+        entry.remove();
+        _entry = null;
+      }
     });
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        widget.child,
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 24,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (final t in _toasts)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Dismissible(
-                    key: ValueKey(t),
-                    direction: DismissDirection.down,
-                    onDismissed: (_) => setState(() => _toasts.remove(t)),
-                    child: Material(
-                      color: t.background ?? Colors.black87,
-                      elevation: 8,
-                      borderRadius: BorderRadius.circular(8),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                        child: Text(t.message, style: const TextStyle(color: Colors.white)),
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _ToastEntry {
-  final String message;
-  final Color? background;
-  _ToastEntry({required this.message, this.background});
-}
-
-abstract class RadixToastController {
-  void show(String message, {Duration duration, Color? background});
 }

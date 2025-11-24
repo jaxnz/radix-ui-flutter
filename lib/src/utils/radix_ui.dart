@@ -345,11 +345,12 @@ class RadixUI {
     RadixAlertVariant variant = RadixAlertVariant.success,
   }) => RadixAlert(title: title, description: description, variant: variant);
 
-  /// Wraps a subtree with the Radix toast overlay manager.
+  /// [toastOverlay] is no longer required; kept for back-compat.
+  /// Toasts are now shown via an overlay attached to the navigator.
   static Widget toastOverlay({
     /// Subtree wrapped by the toast overlay
     required Widget child,
-  }) => RadixToastOverlay(child: child);
+  }) => child;
 
   // ---------- Context-free UX helpers (require navigatorKey wiring) ----------
 
@@ -386,21 +387,25 @@ class RadixUI {
     );
   }
 
-  /// Shows a toast via [RadixToastOverlay] if present, otherwise falls back to a SnackBar.
+  /// Shows a Radix-styled toast using the app navigator's overlay.
   static void showToast(
     String message, {
     Duration duration = const Duration(seconds: 3),
     Color? background,
+    RadixToastPosition position = RadixToastPosition.bottomRight,
   }) {
-    final ctx = _navContext;
-    if (ctx == null) return;
-    final controller = RadixToastOverlay.of(ctx);
-    if (controller != null) {
-      controller.show(message, duration: duration, background: background);
-      return;
-    }
-    // Fallback to SnackBar if overlay not present
-    ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text(message), duration: duration));
+    final nav = navigatorKey?.currentState;
+    final ctx = nav?.context;
+    final overlay = nav?.overlay;
+    if (ctx == null || overlay == null) return;
+    RadixToastHost.show(
+      ctx,
+      message: message,
+      duration: duration,
+      background: background,
+      position: position,
+      overlayState: overlay,
+    );
   }
 }
 

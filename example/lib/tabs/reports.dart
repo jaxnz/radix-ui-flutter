@@ -99,8 +99,18 @@ class _KpiTileDetailed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = RadixTheme.of(context).colors;
-    final badgeBg = item.trend == _Trend.flat ? c.subtleSurface : (item.trend == _Trend.up ? RadixColors.teal.byStep(9, brightness: Theme.of(context).brightness) : RadixColors.red.byStep(9, brightness: Theme.of(context).brightness)).withValues(alpha: 0.12);
-    final badgeFg = item.trend == _Trend.flat ? c.textSubtle : (item.trend == _Trend.up ? RadixColors.teal.byStep(9, brightness: Theme.of(context).brightness) : RadixColors.red.byStep(9, brightness: Theme.of(context).brightness));
+    final brightness = Theme.of(context).brightness;
+    final badgeBg = item.trend == _Trend.flat
+        ? c.subtleSurface
+        : (item.trend == _Trend.up
+                ? RadixColorScales.teal.byStep(9, brightness: brightness)
+                : RadixColorScales.red.byStep(9, brightness: brightness))
+            .withValues(alpha: 0.12);
+    final badgeFg = item.trend == _Trend.flat
+        ? c.textSubtle
+        : (item.trend == _Trend.up
+            ? RadixColorScales.teal.byStep(9, brightness: brightness)
+            : RadixColorScales.red.byStep(9, brightness: brightness));
     return RadixUI.card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
