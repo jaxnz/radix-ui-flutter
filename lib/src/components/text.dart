@@ -15,18 +15,39 @@ class RadixText extends StatelessWidget {
   /// If provided, truncates and adds ellipsis after this number of lines.
   final int? maxLines;
 
-  const RadixText(this.text, {super.key, this.style, this.align, this.maxLines});
+  /// If true, renders as [SelectableText].
+  final bool selectable;
+
+  const RadixText(
+    this.text, {
+    super.key,
+    this.style,
+    this.align,
+    this.maxLines,
+    this.selectable = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final t = RadixTheme.of(context);
     final c = t.colors;
+    final baseStyle = TextStyle(color: c.text).merge(style);
+
+    if (selectable) {
+      return SelectableText(
+        text,
+        textAlign: align,
+        maxLines: maxLines,
+        style: baseStyle,
+      );
+    }
+
     return Text(
       text,
       textAlign: align,
       maxLines: maxLines,
       overflow: maxLines == null ? TextOverflow.visible : TextOverflow.ellipsis,
-      style: TextStyle(color: c.text).merge(style),
+      style: baseStyle,
     );
   }
 }

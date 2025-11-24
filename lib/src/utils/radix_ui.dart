@@ -175,8 +175,8 @@ class RadixUI {
 
   // ---------- Basic content helpers ----------
   /// Radix-styled text.
-  static Widget text(String value, {TextStyle? style, TextAlign? align, int? maxLines}) =>
-      RadixText(value, style: style, align: align, maxLines: maxLines);
+  static Widget text(String value, {TextStyle? style, TextAlign? align, int? maxLines, bool selectable = false}) =>
+      RadixText(value, style: style, align: align, maxLines: maxLines, selectable: selectable);
 
   /// Radix-styled heading. [level] ranges 1..6.
   static Widget heading(String value, {int level = 3}) => RadixHeading(value, level: level);
