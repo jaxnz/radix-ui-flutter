@@ -79,7 +79,7 @@ MaterialApp(
 - Buttons: `button({label, child, variant, size, fullWidth, isLoading, onPressed, color})`
 - Inputs: `textField({placeholder, label, controller, obscureText, size, variant})`, `labeledSwitch`, `checkbox`, `radioGroup`, `select`
 - Ranges/status: `slider`, `progress`
-- Navigation/overlays: `tabs`, `tooltip`, `openDialog(RadixDialog)`, `accordion`, `toggle`, `toggleGroup`
+- Navigation/overlays: `tabs`, `tooltip`, `openDialog(RadixDialog)`, `accordion`, `toggle`, `toggleGroup`, `dropdownMenu`
 - Global UX: `showToast`, `confirm`, `appBuilder`, `setNavigatorKey`
 
 Example:
@@ -92,6 +92,18 @@ RadixUI.section(
     RadixUI.button(label: 'Create account', variant: RadixButtonVariant.soft, onPressed: () {}),
   ]),
 )
+
+// Dropdown menu
+RadixUI.dropdownMenu(
+  button: RadixUI.button(label: 'Menu', onPressed: () {}),
+  entries: const [
+    RadixDropdownItem(label: 'New File'),
+    RadixDropdownItem(label: 'New Folder'),
+    RadixDropdownSeparator(),
+    RadixDropdownItem(label: 'Settings', shortcut: '⌘,'),
+    RadixDropdownItem(label: 'Delete', destructive: true),
+  ],
+);
 ```
 
 ### Global dialogs and toasts

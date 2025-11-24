@@ -19,6 +19,7 @@ import '../components/tabs.dart';
 import '../components/tooltip.dart';
 import '../components/dialog.dart';
 import '../components/select.dart';
+import '../components/dropdown_menu.dart';
 import '../components/accordion.dart';
 import '../components/toggle.dart';
 import '../components/toggle_group.dart';
@@ -211,6 +212,13 @@ class RadixUI {
   /// Horizontal separator.
   static Widget separator() => const RadixSeparator();
 
+  /// Dropdown menu with Radix styling.
+  static Widget dropdownMenu({
+    required Widget button,
+    required List<RadixDropdownEntry> entries,
+    double? width,
+  }) => RadixDropdownMenu(button: button, entries: entries, width: width);
+
   // Inputs & choices
   /// Checkbox with optional [label].
   static Widget checkbox({required bool value, ValueChanged<bool?>? onChanged, String? label}) =>
@@ -359,10 +367,12 @@ class RadixUI {
 
   /// Call once in your app setup if you want global confirm/toast actions.
   /// Example:
-  ///   MaterialApp(
-  ///     navigatorKey: RadixUI.navigatorKey = GlobalKey<NavigatorState>(),
-  ///     builder: RadixUI.appBuilder(base),
-  ///   )
+  /// ```dart
+  /// MaterialApp(
+  ///   navigatorKey: RadixUI.navigatorKey = GlobalKey<NavigatorState>(),
+  ///   builder: RadixUI.appBuilder(base),
+  /// )
+  /// ```
   static void setNavigatorKey(GlobalKey<NavigatorState> key) {
     navigatorKey = key;
   }
