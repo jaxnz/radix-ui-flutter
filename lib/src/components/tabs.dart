@@ -18,6 +18,9 @@ class RadixTabs extends StatefulWidget {
   /// Selection callback fired when a tab is tapped or the active tab changes.
   final ValueChanged<int>? onTap;
 
+  /// Optional external controller for programmatic control. Not disposed when supplied.
+  final TabController? controller;
+
   /// Creates Radix tabs.
   RadixTabs({
     super.key,
@@ -26,6 +29,7 @@ class RadixTabs extends StatefulWidget {
     this.initialIndex = 0,
     this.contentPadding = const EdgeInsets.only(top: 16, bottom: 24),
     this.onTap,
+    this.controller,
   })  : assert(
             children == null ||
                 children.isEmpty ||
@@ -39,22 +43,27 @@ class RadixTabs extends StatefulWidget {
 
 class _RadixTabsState extends State<RadixTabs> with TickerProviderStateMixin {
   late TabController _controller;
+  late bool _ownsController;
   int? _lastReportedIndex;
 
   @override
   void initState() {
     super.initState();
-    _controller = _createController(widget.initialIndex);
+    _initController();
     _controller.addListener(_handleIndexChanged);
     _lastReportedIndex = _controller.index;
   }
 
-  TabController _createController(int index) {
-    return TabController(
-        length: widget.tabs.length,
-        vsync: this,
-        initialIndex: _clampIndex(index));
+  void _initController() {
+    _ownsController = widget.controller == null;
+    _controller =
+        widget.controller ?? _createOwnedController(widget.initialIndex);
   }
+
+  TabController _createOwnedController(int index) => TabController(
+      length: widget.tabs.length,
+      vsync: this,
+      initialIndex: _clampIndex(index));
 
   int _clampIndex(int index) => index.clamp(0, widget.tabs.length - 1).toInt();
 
@@ -62,19 +71,31 @@ class _RadixTabsState extends State<RadixTabs> with TickerProviderStateMixin {
   void didUpdateWidget(covariant RadixTabs oldWidget) {
     super.didUpdateWidget(oldWidget);
     final tabsChanged = oldWidget.tabs.length != widget.tabs.length;
-    if (tabsChanged) {
+    final controllerChanged = oldWidget.controller != widget.controller;
+
+    if (controllerChanged) {
+      _swapController(
+          widget.controller ??
+              _createOwnedController(_clampIndex(widget.initialIndex)),
+          ownsController: widget.controller == null);
+    } else if (tabsChanged && _ownsController) {
       final newIndex = _clampIndex(_controller.index);
-      _swapController(_createController(newIndex));
+      _swapController(_createOwnedController(newIndex), ownsController: true);
     } else if (oldWidget.initialIndex != widget.initialIndex &&
-        widget.initialIndex != _controller.index) {
+        widget.initialIndex != _controller.index &&
+        _ownsController) {
       _controller.animateTo(_clampIndex(widget.initialIndex));
     }
   }
 
-  void _swapController(TabController controller) {
+  void _swapController(TabController controller,
+      {required bool ownsController}) {
     _controller.removeListener(_handleIndexChanged);
-    _controller.dispose();
+    if (_ownsController) {
+      _controller.dispose();
+    }
     _controller = controller;
+    _ownsController = ownsController;
     _controller.addListener(_handleIndexChanged);
     _lastReportedIndex = _controller.index;
   }
@@ -96,7 +117,9 @@ class _RadixTabsState extends State<RadixTabs> with TickerProviderStateMixin {
   @override
   void dispose() {
     _controller.removeListener(_handleIndexChanged);
-    _controller.dispose();
+    if (_ownsController) {
+      _controller.dispose();
+    }
     super.dispose();
   }
 
@@ -110,6 +133,10 @@ class _RadixTabsState extends State<RadixTabs> with TickerProviderStateMixin {
         !hasContent || children.length == widget.tabs.length,
         'When providing tab content, its length must match the number of tabs '
         '(${widget.tabs.length}).');
+    assert(
+        widget.controller == null ||
+            widget.controller!.length == widget.tabs.length,
+        'External TabController length must match the number of tabs.');
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
