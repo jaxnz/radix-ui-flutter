@@ -40,7 +40,8 @@ class RadixUI {
 
   /// Semantic colors based on the current resolved theme.
   /// Resolved semantic color tokens for the active theme.
-  static dynamic get colors => _theme.colors; // Kept dynamic to avoid export coupling
+  static dynamic get colors =>
+      _theme.colors; // Kept dynamic to avoid export coupling
 
   /// Default Material text theme for the current theme.
   /// Material text theme derived from the active theme.
@@ -64,7 +65,8 @@ class RadixUI {
       final resolvedBrightness = Theme.of(context).brightness;
       final resolved = base.copyWith(brightness: resolvedBrightness);
       RadixUI.setTheme(resolved);
-      return RadixTheme(data: resolved, child: child ?? const SizedBox.shrink());
+      return RadixTheme(
+          data: resolved, child: child ?? const SizedBox.shrink());
     };
   }
 
@@ -90,9 +92,11 @@ class RadixUI {
     bool isLoading = false,
     Color? color,
   }) {
-    assert(label != null || child != null, 'RadixUI.button requires either a label or a child.');
+    assert(label != null || child != null,
+        'RadixUI.button requires either a label or a child.');
 
-    final effectiveChild = child ?? (label != null ? Text(label) : const SizedBox.shrink());
+    final effectiveChild =
+        child ?? (label != null ? Text(label) : const SizedBox.shrink());
 
     return RadixButton(
       variant: variant,
@@ -106,10 +110,20 @@ class RadixUI {
   }
 
   // Back-compat helpers (redirect to button)
-  static RadixButton solidButton(String label, {VoidCallback? onPressed, Color? color}) =>
-      button(label: label, onPressed: onPressed, color: color, variant: RadixButtonVariant.solid);
-  static RadixButton outlineButton(String label, {VoidCallback? onPressed, Color? color}) =>
-      button(label: label, onPressed: onPressed, color: color, variant: RadixButtonVariant.outline);
+  static RadixButton solidButton(String label,
+          {VoidCallback? onPressed, Color? color}) =>
+      button(
+          label: label,
+          onPressed: onPressed,
+          color: color,
+          variant: RadixButtonVariant.solid);
+  static RadixButton outlineButton(String label,
+          {VoidCallback? onPressed, Color? color}) =>
+      button(
+          label: label,
+          onPressed: onPressed,
+          color: color,
+          variant: RadixButtonVariant.outline);
 
   /// Creates a Radix text field.
   ///
@@ -131,32 +145,39 @@ class RadixUI {
     RadixFieldSize size = RadixFieldSize.md,
     RadixTextFieldVariant variant = RadixTextFieldVariant.surface,
     ValueChanged<String>? onChanged,
-  }) => RadixTextField(
-    placeholder: placeholder,
-    label: label,
-    prefixIcon: prefixIcon,
-    suffixIcon: suffixIcon,
-    controller: controller,
-    obscureText: obscureText,
-    size: size,
-    variant: variant,
-    onChanged: onChanged,
-  );
+  }) =>
+      RadixTextField(
+        placeholder: placeholder,
+        label: label,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+        controller: controller,
+        obscureText: obscureText,
+        size: size,
+        variant: variant,
+        onChanged: onChanged,
+      );
 
   /// A switch with a clickable [label].
   ///
   /// - [label]: displayed next to the switch
   /// - [value]: current on/off value
   /// - [onChanged]: change callback
-  static RadixSwitch labeledSwitch(String label, bool value, ValueChanged<bool> onChanged) =>
-      RadixSwitch(value: value, onChanged: onChanged, label: label, size: RadixSwitchSize.sm);
+  static RadixSwitch labeledSwitch(
+          String label, bool value, ValueChanged<bool> onChanged) =>
+      RadixSwitch(
+          value: value,
+          onChanged: onChanged,
+          label: label,
+          size: RadixSwitchSize.sm);
 
   /// A standard Radix section composed of a heading, optional description, and [child].
   ///
   /// - [title]: section title
   /// - [description]: optional supporting text
   /// - [child]: section content
-  static Widget section({required String title, String? description, required Widget child}) {
+  static Widget section(
+      {required String title, String? description, required Widget child}) {
     final c = colors;
     return RadixCard(
       header: heading(title, level: 3),
@@ -175,11 +196,20 @@ class RadixUI {
 
   // ---------- Basic content helpers ----------
   /// Radix-styled text.
-  static Widget text(String value, {TextStyle? style, TextAlign? align, int? maxLines, bool selectable = false}) =>
-      RadixText(value, style: style, align: align, maxLines: maxLines, selectable: selectable);
+  static Widget text(String value,
+          {TextStyle? style,
+          TextAlign? align,
+          int? maxLines,
+          bool selectable = false}) =>
+      RadixText(value,
+          style: style,
+          align: align,
+          maxLines: maxLines,
+          selectable: selectable);
 
   /// Radix-styled heading. [level] ranges 1..6.
-  static Widget heading(String value, {int level = 3}) => RadixHeading(value, level: level);
+  static Widget heading(String value, {int level = 3}) =>
+      RadixHeading(value, level: level);
 
   /// Radix card container with optional [header] and [footer].
   static Widget card({
@@ -191,23 +221,26 @@ class RadixUI {
 
     /// Main card content
     required Widget child,
-  }) => RadixCard(header: header, footer: footer, child: child);
+  }) =>
+      RadixCard(header: header, footer: footer, child: child);
 
   /// Radix badge with [label] and [variant].
-  static Widget badge(String label, {RadixBadgeVariant variant = RadixBadgeVariant.solid}) =>
+  static Widget badge(String label,
+          {RadixBadgeVariant variant = RadixBadgeVariant.solid}) =>
       RadixBadge(label: label, variant: variant);
 
   /// Radix avatar built from [initials].
   static Widget avatar(
     /// Initials shown when no image is provided
     String initials, {
-
     /// Avatar size
     double size = 28,
-  }) => RadixAvatar(initials: initials, size: size);
+  }) =>
+      RadixAvatar(initials: initials, size: size);
 
   /// Radix-styled inline link.
-  static Widget link(String textValue, {VoidCallback? onTap}) => RadixLink(textValue, onTap: onTap);
+  static Widget link(String textValue, {VoidCallback? onTap}) =>
+      RadixLink(textValue, onTap: onTap);
 
   /// Horizontal separator.
   static Widget separator() => const RadixSeparator();
@@ -217,11 +250,15 @@ class RadixUI {
     required Widget button,
     required List<RadixDropdownEntry> entries,
     double? width,
-  }) => RadixDropdownMenu(button: button, entries: entries, width: width);
+  }) =>
+      RadixDropdownMenu(button: button, entries: entries, width: width);
 
   // Inputs & choices
   /// Checkbox with optional [label].
-  static Widget checkbox({required bool value, ValueChanged<bool?>? onChanged, String? label}) =>
+  static Widget checkbox(
+          {required bool value,
+          ValueChanged<bool?>? onChanged,
+          String? label}) =>
       RadixCheckbox(value: value, onChanged: onChanged, label: label);
 
   /// Radio group bound to [groupValue] with [options].
@@ -234,7 +271,9 @@ class RadixUI {
 
     /// Available options
     required List<RadixRadioOption<T>> options,
-  }) => RadixRadioGroup<T>(groupValue: groupValue, onChanged: onChanged, options: options);
+  }) =>
+      RadixRadioGroup<T>(
+          groupValue: groupValue, onChanged: onChanged, options: options);
 
   /// Select field with [options] and current [value].
   /// - [size]: control size (sm/md/lg); defaults to md
@@ -247,7 +286,12 @@ class RadixUI {
     ValueChanged<T?>? onChanged,
     String? hint,
   }) =>
-      RadixSelect<T>(value: value, options: options, onChanged: onChanged, size: size, hint: hint);
+      RadixSelect<T>(
+          value: value,
+          options: options,
+          onChanged: onChanged,
+          size: size,
+          hint: hint);
 
   // Ranges & status
   /// Slider with [value] in [0..max].
@@ -260,13 +304,15 @@ class RadixUI {
 
     /// Maximum value
     double max = 100,
-  }) => RadixSlider(value: value, onChanged: onChanged, max: max);
+  }) =>
+      RadixSlider(value: value, onChanged: onChanged, max: max);
 
   /// Linear progress indicator with [value] in [0..1].
   static Widget progress({
     /// Progress in [0..1]
     required double value,
-  }) => RadixProgress(value: value);
+  }) =>
+      RadixProgress(value: value);
 
   // Navigation & structure
   /// Tabs with [tabs] pages, optional [initialIndex], and [contentPadding].
@@ -274,12 +320,24 @@ class RadixUI {
     /// Tab pages
     required List<RadixTab> tabs,
 
+    /// Tab contents (optional; must match length of [tabs] when provided)
+    List<Widget>? children,
+
     /// Initial selected index
     int initialIndex = 0,
 
+    /// Callback when tab selection changes
+    ValueChanged<int>? onTap,
+
     /// Padding inside each tab view
     EdgeInsetsGeometry contentPadding = const EdgeInsets.fromLTRB(0, 16, 0, 24),
-  }) => RadixTabs(tabs: tabs, initialIndex: initialIndex, contentPadding: contentPadding);
+  }) =>
+      RadixTabs(
+          tabs: tabs,
+          children: children,
+          initialIndex: initialIndex,
+          contentPadding: contentPadding,
+          onTap: onTap);
 
   /// Tooltip wrapping [child].
   static Widget tooltip({
@@ -288,7 +346,8 @@ class RadixUI {
 
     /// Wrapped widget
     required Widget child,
-  }) => RadixTooltip(message: message, child: child);
+  }) =>
+      RadixTooltip(message: message, child: child);
 
   /// Opens a [RadixDialog] using the configured [navigatorKey].
   static Future<void> openDialog(
@@ -304,7 +363,8 @@ class RadixUI {
   static Widget accordion({
     /// Items to render
     required List<RadixAccordionItem> items,
-  }) => RadixAccordion(items: items);
+  }) =>
+      RadixAccordion(items: items);
 
   /// Toggle control with [initialOn] state.
   static Widget toggle({
@@ -316,7 +376,8 @@ class RadixUI {
 
     /// Toggle content
     required Widget child,
-  }) => RadixToggle(initialOn: initialOn, onChanged: onChanged, child: child);
+  }) =>
+      RadixToggle(initialOn: initialOn, onChanged: onChanged, child: child);
 
   /// Toggle group with [selected] values and [options].
   static Widget toggleGroup<T>({
@@ -331,18 +392,20 @@ class RadixUI {
 
     /// Enable multi-select
     bool multiple = true,
-  }) => RadixToggleGroup<T>(
-    selected: selected,
-    onChanged: onChanged,
-    options: options,
-    multiple: multiple,
-  );
+  }) =>
+      RadixToggleGroup<T>(
+        selected: selected,
+        onChanged: onChanged,
+        options: options,
+        multiple: multiple,
+      );
 
   /// Form label.
   static Widget label(
     /// Label text
     String textValue,
-  ) => RadixLabel(textValue);
+  ) =>
+      RadixLabel(textValue);
 
   /// Inline alert message with [variant].
   static Widget alert({
@@ -354,14 +417,16 @@ class RadixUI {
 
     /// Variant style
     RadixAlertVariant variant = RadixAlertVariant.success,
-  }) => RadixAlert(title: title, description: description, variant: variant);
+  }) =>
+      RadixAlert(title: title, description: description, variant: variant);
 
   /// [toastOverlay] is no longer required; kept for back-compat.
   /// Toasts are now shown via an overlay attached to the navigator.
   static Widget toastOverlay({
     /// Subtree wrapped by the toast overlay
     required Widget child,
-  }) => child;
+  }) =>
+      child;
 
   // ---------- Context-free UX helpers (require navigatorKey wiring) ----------
 

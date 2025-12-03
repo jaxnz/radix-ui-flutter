@@ -30,14 +30,22 @@ class _ComponentsTabState extends State<ComponentsTab> {
             runSpacing: 8,
             children: [
               RadixUI.button(label: 'Solid', onPressed: () {}),
-              RadixUI.button(label: 'Soft', variant: RadixButtonVariant.soft, onPressed: () {}),
-              RadixUI.button(label: 'Outline', variant: RadixButtonVariant.outline, onPressed: () {}),
-              RadixUI.button(label: 'Ghost', variant: RadixButtonVariant.ghost, onPressed: () {}),
+              RadixUI.button(
+                  label: 'Soft',
+                  variant: RadixButtonVariant.soft,
+                  onPressed: () {}),
+              RadixUI.button(
+                  label: 'Outline',
+                  variant: RadixButtonVariant.outline,
+                  onPressed: () {}),
+              RadixUI.button(
+                  label: 'Ghost',
+                  variant: RadixButtonVariant.ghost,
+                  onPressed: () {}),
             ],
           ),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Badges'),
         _Card(
           child: Wrap(
@@ -49,20 +57,28 @@ class _ComponentsTabState extends State<ComponentsTab> {
           ),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Text & Headings'),
         _Card(
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [RadixUI.heading('Heading 2', level: 2), const SizedBox(height: 6), RadixUI.text('Body text using semantic colors.')]),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            RadixUI.heading('Heading 2', level: 2),
+            const SizedBox(height: 6),
+            RadixUI.text('Body text using semantic colors.')
+          ]),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Inputs'),
         _Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: [RadixCheckbox(value: chk, onChanged: (v) => setState(() => chk = v ?? false), label: 'Accept')],
+                children: [
+                  RadixCheckbox(
+                      value: chk,
+                      onChanged: (v) => setState(() => chk = v ?? false),
+                      label: 'Accept')
+                ],
               ),
               const SizedBox(height: 8),
               RadixRadioGroup<String>(
@@ -74,53 +90,53 @@ class _ComponentsTabState extends State<ComponentsTab> {
                 ],
               ),
               const SizedBox(height: 8),
-              Row(children: [RadixUI.labeledSwitch('Enable', sw, (v) => setState(() => sw = v))]),
+              Row(children: [
+                RadixUI.labeledSwitch(
+                    'Enable', sw, (v) => setState(() => sw = v))
+              ]),
               const SizedBox(height: 8),
               RadixUI.textField(placeholder: 'your@email.com'),
             ],
           ),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Slider & Progress'),
         _Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RadixUI.slider(value: slide, onChanged: (v) => setState(() => slide = v), max: 100),
+              RadixUI.slider(
+                  value: slide,
+                  onChanged: (v) => setState(() => slide = v),
+                  max: 100),
               const SizedBox(height: 8),
               RadixUI.progress(value: progress),
             ],
           ),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Tabs'),
         _Card(
           child: SizedBox(
             height: 220,
             child: RadixUI.tabs(
-              tabs: const [
-                RadixTab(
-                  label: 'One',
-                  content: Padding(padding: EdgeInsets.all(8), child: RadixText('Tab one')),
-                ),
-                RadixTab(
-                  label: 'Two',
-                  content: Padding(padding: EdgeInsets.all(8), child: RadixText('Tab two')),
-                ),
+              tabs: const [RadixTab(label: 'One'), RadixTab(label: 'Two')],
+              children: const [
+                Padding(
+                    padding: EdgeInsets.all(8), child: RadixText('Tab one')),
+                Padding(
+                    padding: EdgeInsets.all(8), child: RadixText('Tab two')),
               ],
             ),
           ),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Tooltip & Icons'),
         _Card(
-          child: RadixUI.tooltip(message: 'Info tooltip', child: const Icon(Icons.info_outline)),
+          child: RadixUI.tooltip(
+              message: 'Info tooltip', child: const Icon(Icons.info_outline)),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Dialogs'),
         _Card(
           child: Wrap(
@@ -128,21 +144,25 @@ class _ComponentsTabState extends State<ComponentsTab> {
             children: [
               RadixUI.button(
                 label: 'Open Dialog',
-                onPressed: () => RadixUI.openDialog(const RadixDialog(title: 'Dialog', content: RadixText('Hello'))),
+                onPressed: () => RadixUI.openDialog(const RadixDialog(
+                    title: 'Dialog', content: RadixText('Hello'))),
               ),
               RadixUI.button(
                 label: 'Alert',
-                onPressed: () => radixAlertDialog(context: context, title: 'Alert', description: 'Pay attention.'),
+                onPressed: () => radixAlertDialog(
+                    context: context,
+                    title: 'Alert',
+                    description: 'Pay attention.'),
               ),
               RadixUI.button(
                 label: 'Confirm',
-                onPressed: () => radixConfirmDialog(context: context, title: 'Confirm'),
+                onPressed: () =>
+                    radixConfirmDialog(context: context, title: 'Confirm'),
               ),
             ],
           ),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Select'),
         _Card(
           child: RadixUI.select<String>(
@@ -156,7 +176,6 @@ class _ComponentsTabState extends State<ComponentsTab> {
           ),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Avatar, Separator'),
         _Card(
           child: Row(
@@ -168,23 +187,26 @@ class _ComponentsTabState extends State<ComponentsTab> {
           ),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Accordion'),
         _Card(
           child: RadixUI.accordion(
             items: const [
-              RadixAccordionItem(header: 'Section 1', content: RadixText('Content one')),
-              RadixAccordionItem(header: 'Section 2', content: RadixText('Content two')),
+              RadixAccordionItem(
+                  header: 'Section 1', content: RadixText('Content one')),
+              RadixAccordionItem(
+                  header: 'Section 2', content: RadixText('Content two')),
             ],
           ),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Toggle & ToggleGroup'),
         _Card(
           child: Column(
             children: [
-              RadixUI.toggle(initialOn: toggleOn, onChanged: (v) => setState(() => toggleOn = v), child: const Text('Toggle')),
+              RadixUI.toggle(
+                  initialOn: toggleOn,
+                  onChanged: (v) => setState(() => toggleOn = v),
+                  child: const Text('Toggle')),
               const SizedBox(height: 8),
               RadixUI.toggleGroup<String>(
                 multiple: true,
@@ -200,9 +222,13 @@ class _ComponentsTabState extends State<ComponentsTab> {
           ),
         ),
         const SizedBox(height: 16),
-
         const _SectionHeader('Label & Link'),
-        _Card(child: Row(children: [const RadixLabel('Email'), const SizedBox(width: 8), RadixUI.link('Open docs')])),
+        _Card(
+            child: Row(children: [
+          const RadixLabel('Email'),
+          const SizedBox(width: 8),
+          RadixUI.link('Open docs')
+        ])),
       ],
     );
   }

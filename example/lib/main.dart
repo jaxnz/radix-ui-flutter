@@ -30,7 +30,10 @@ class _ExampleAppState extends State<ExampleApp> {
 
   @override
   Widget build(BuildContext context) {
-    final base = RadixThemeData(brightness: Brightness.light, grayScale: RadixColorScales.mauve, brandScale: RadixColorScales.violet);
+    final base = RadixThemeData(
+        brightness: Brightness.light,
+        grayScale: RadixColorScales.mauve,
+        brandScale: RadixColorScales.violet);
     return MaterialApp(
       navigatorKey: RadixUI.navigatorKey,
       title: 'Radix UI Flutter Example',
@@ -38,7 +41,8 @@ class _ExampleAppState extends State<ExampleApp> {
       darkTheme: base.copyWith(brightness: Brightness.dark).toMaterialTheme(),
       themeMode: _mode,
       builder: RadixUI.appBuilder(base),
-      home: DemoPage(onToggleTheme: _toggleTheme, dark: _mode == ThemeMode.dark),
+      home:
+          DemoPage(onToggleTheme: _toggleTheme, dark: _mode == ThemeMode.dark),
     );
   }
 }
@@ -62,7 +66,12 @@ class _DemoPageState extends State<DemoPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Radix UI Flutter Example'),
-        actions: [IconButton(tooltip: widget.dark ? 'Switch to light' : 'Switch to dark', onPressed: widget.onToggleTheme, icon: Icon(widget.dark ? Icons.dark_mode : Icons.light_mode))],
+        actions: [
+          IconButton(
+              tooltip: widget.dark ? 'Switch to light' : 'Switch to dark',
+              onPressed: widget.onToggleTheme,
+              icon: Icon(widget.dark ? Icons.dark_mode : Icons.light_mode))
+        ],
       ),
       body: Center(
         child: ConstrainedBox(
@@ -71,14 +80,25 @@ class _DemoPageState extends State<DemoPage> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
             child: RadixUI.tabs(
               tabs: [
-                const RadixTab(label: 'Team', content: TeamTab()),
-                RadixTab(
-                  label: 'Settings',
-                  content: SettingsTab(comments: comments, favorites: favorites, newDocs: newDocs, onComments: (v) => setState(() => comments = v), onFavorites: (v) => setState(() => favorites = v), onNewDocs: (v) => setState(() => newDocs = v)),
+                const RadixTab(label: 'Team'),
+                const RadixTab(label: 'Settings'),
+                const RadixTab(label: 'Billing'),
+                const RadixTab(label: 'Reports'),
+                const RadixTab(label: 'Components'),
+              ],
+              children: [
+                const TeamTab(),
+                SettingsTab(
+                  comments: comments,
+                  favorites: favorites,
+                  newDocs: newDocs,
+                  onComments: (v) => setState(() => comments = v),
+                  onFavorites: (v) => setState(() => favorites = v),
+                  onNewDocs: (v) => setState(() => newDocs = v),
                 ),
-                const RadixTab(label: 'Billing', content: BillingTab()),
-                const RadixTab(label: 'Reports', content: ReportsTab()),
-                const RadixTab(label: 'Components', content: ComponentsTab()),
+                const BillingTab(),
+                const ReportsTab(),
+                const ComponentsTab(),
               ],
             ),
           ),
