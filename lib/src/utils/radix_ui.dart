@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../components/toast.dart';
 import '../theme/radix_theme.dart';
 import '../components/button.dart';
 import '../components/text_field.dart';
@@ -425,7 +426,7 @@ class RadixUI {
   static void showToast(
     String message, {
     Duration duration = const Duration(seconds: 3),
-    Color? background,
+    RadixToastVariant variant = RadixToastVariant.info,
     RadixToastPosition position = RadixToastPosition.bottomRight,
   }) {
     final nav = navigatorKey?.currentState;
@@ -436,7 +437,7 @@ class RadixUI {
       ctx,
       message: message,
       duration: duration,
-      background: background,
+      variant: variant,
       position: position,
       overlayState: overlay,
     );

@@ -109,7 +109,9 @@ class _RadixTabsState extends State<RadixTabs> with TickerProviderStateMixin {
   void _handleIndexChanged() {
     if (widget.onTap == null ||
         _controller.indexIsChanging ||
-        _controller.index == _lastReportedIndex) return;
+        _controller.index == _lastReportedIndex) {
+      return;
+    }
     _lastReportedIndex = _controller.index;
     widget.onTap!(_controller.index);
   }

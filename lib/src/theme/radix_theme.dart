@@ -33,7 +33,6 @@ class RadixThemeData {
       onSecondary: c.text,
       surface: c.surface,
       onSurface: c.text,
-      background: c.background,
       error: c.danger,
       onError: Colors.white,
       outline: c.border,

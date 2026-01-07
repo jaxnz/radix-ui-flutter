@@ -16,7 +16,7 @@ class RadixColorScale {
 
   /// Build a Material swatch (50-900, plus 950) from the Radix steps.
   MaterialColor toMaterialColor({Brightness brightness = Brightness.light}) {
-    final shade = (int step) => byStep(step, brightness: brightness);
+    shade(int step) => byStep(step, brightness: brightness);
     final swatch = <int, Color>{
       50: shade(1),
       100: shade(2),
